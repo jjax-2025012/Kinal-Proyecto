@@ -1,11 +1,7 @@
 package com.josethjax.kinalapp.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "productos")
@@ -19,8 +15,8 @@ public class Producto {
     @Column(name = "nombre_producto", length = 60)
     private String nombreProducto;
 
-    @Column
-    private Double precio;
+    @Column(precision = 10, scale = 2)
+    private BigDecimal precio;
 
     private Integer stock;
 
@@ -29,7 +25,7 @@ public class Producto {
     public Producto() {
     }
 
-    public Producto(String nombreProducto, Double precio, Integer stock, Integer estado) {
+    public Producto(String nombreProducto, BigDecimal precio, Integer stock, Integer estado) {
         this.nombreProducto = nombreProducto;
         this.precio = precio;
         this.stock = stock;
@@ -52,11 +48,11 @@ public class Producto {
         this.nombreProducto = nombreProducto;
     }
 
-    public Double getPrecio() {
+    public BigDecimal getPrecio() {
         return precio;
     }
 
-    public void setPrecio(Double precio) {
+    public void setPrecio(BigDecimal precio) {
         this.precio = precio;
     }
 

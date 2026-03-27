@@ -1,8 +1,7 @@
 package com.josethjax.kinalapp.Service;
 
-import com.josethjax.kinalapp.Service.IUsuarioService;
 import com.josethjax.kinalapp.entity.Usuario;
-import com.josethjax.kinalapp.repositry.UsuarioRepository;
+import com.josethjax.kinalapp.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -45,9 +44,10 @@ public class UsuarioService implements IUsuarioService {
         }
 
         // Validar que no exista otro usuario con el mismo username
+        // Para nuevo usuario (codigoUsuario = 0) o para actualización
         boolean usernameExiste = usuarioRepository.findAll().stream()
                 .anyMatch(u -> u.getUsername().equals(usuario.getUsername())
-                        && !u.getCodigoUsuario().equals(usuario.getCodigoUsuario()));
+                        && u.getCodigoUsuario() != usuario.getCodigoUsuario());
 
         if (usernameExiste) {
             throw new IllegalArgumentException("El username ya existe");
@@ -56,7 +56,7 @@ public class UsuarioService implements IUsuarioService {
         // Validar que no exista otro usuario con el mismo email
         boolean emailExiste = usuarioRepository.findAll().stream()
                 .anyMatch(u -> u.getEmail().equals(usuario.getEmail())
-                        && !u.getCodigoUsuario().equals(usuario.getCodigoUsuario()));
+                        && u.getCodigoUsuario() != usuario.getCodigoUsuario());
 
         if (emailExiste) {
             throw new IllegalArgumentException("El email ya existe");
@@ -65,6 +65,11 @@ public class UsuarioService implements IUsuarioService {
         // Si no especifica rol, asignar "USER" por defecto
         if (usuario.getRol() == null || usuario.getRol().trim().isEmpty()) {
             usuario.setRol("USER");
+        }
+
+        // Si no especifica estado, asignar 1 por defecto
+        if (usuario.getEstado() == 0) {
+            usuario.setEstado(1);
         }
 
         return usuarioRepository.save(usuario);

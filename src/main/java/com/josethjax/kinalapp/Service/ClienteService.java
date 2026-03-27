@@ -1,7 +1,7 @@
 package com.josethjax.kinalapp.Service;
 
 import com.josethjax.kinalapp.entity.Cliente;
-import com.josethjax.kinalapp.repositry.ClienteRepository;
+import com.josethjax.kinalapp.repository.ClienteRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

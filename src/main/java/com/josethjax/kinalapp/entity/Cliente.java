@@ -4,40 +4,44 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import org.hibernate.annotations.Comment;
 
 @Entity
 @Table(name = "clientes")
 public class Cliente {
+
     @Id
-    @Column (name= "dpi_cliente")
+    @Column(name = "dpi_cliente", nullable = false)
     private String dpiCliente;
-    @Column
+
+    @Column(name = "nombre_cliente", nullable = false, length = 50)
     private String nombreCliente;
-    @Column
+
+    @Column(name = "apellido_cliente", nullable = false, length = 50)
     private String apellidoCliente;
-    @Column
+
+    @Column(nullable = false, length = 100)
     private String direccion;
-    @Column
+
+    @Column(nullable = false)
     private int estado;
 
     public Cliente() {
     }
 
-    public Cliente(String DPICliente, int estado, String direccion, String apellidoCliente, String nombreCliente) {
-        this.dpiCliente = DPICliente;
-        this.estado = estado;
-        this.direccion = direccion;
-        this.apellidoCliente = apellidoCliente;
+    public Cliente(String dpiCliente, String nombreCliente, String apellidoCliente, String direccion, int estado) {
+        this.dpiCliente = dpiCliente;
         this.nombreCliente = nombreCliente;
+        this.apellidoCliente = apellidoCliente;
+        this.direccion = direccion;
+        this.estado = estado;
     }
 
     public String getDpiCliente() {
         return dpiCliente;
     }
 
-    public void setDpiCliente(String DPICliente) {
-        this.dpiCliente = DPICliente;
+    public void setDpiCliente(String dpiCliente) {
+        this.dpiCliente = dpiCliente;
     }
 
     public String getNombreCliente() {

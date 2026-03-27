@@ -60,6 +60,11 @@ public class UsuarioController {
         }
     }
 
+    @GetMapping("/test")
+    public ResponseEntity<String> test() {
+        return ResponseEntity.ok("El controlador funciona!");
+    }
+
     @PutMapping("/{codigo}")
     public ResponseEntity<?> actualizar(@PathVariable Integer codigo, @RequestBody Usuario usuario) {
         try {

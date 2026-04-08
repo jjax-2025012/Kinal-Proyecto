@@ -1,0 +1,1134 @@
+{
+  "info": {
+    "_postman_id": "2777f950-a464-4be4-8b39-4d1b59532f85",
+    "name": "KinalApp-2025012",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "52312173",
+    "_collection_link": "https://go.postman.co/collection/52312173-2777f950-a464-4be4-8b39-4d1b59532f85?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Listar_Todos_los_Clientes",
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "12345",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "jjax",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8081/clientes",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "clientes"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Agragar_Clientes",
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "username",
+              "value": "jjax",
+              "type": "string"
+            },
+            {
+              "key": "password",
+              "value": "12345",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"dpiCliente\": \"1234567890123\",\r\n    \"nombreCliente\": \"Joseth\",\r\n    \"apellidoCliente\": \"Jax\",\r\n    \"direccion\": \"San Jose Pinula, Guatemala\",\r\n    \"estado\": 1\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8081/clientes",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "clientes"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Actualizar_Clientes",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"nombreCliente\": \"Henry\",\r\n    \"apellidoCliente\": \"Lima\",\r\n    \"direccion\": \"San Jose Pinula, Guatemala\",\r\n    \"estado\": 0\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8081/clientes/1234567890124",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "clientes",
+            "1234567890124"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Eliminar_Clientes",
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "12345",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "jjax",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8081/clientes/1234567890123",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "clientes",
+            "1234567890123"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Listar_Clientes_Activos",
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "12345",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "jjax",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8081/clientes",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "clientes"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Listar_cliente_por_DPI",
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "12345",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "jjax",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8081/clientes/1234567890123",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "clientes",
+            "1234567890123"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Listar_todos_los_Usuarios",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8081/usuarios",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "usuarios"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Buscar_Usuario_por_codigo",
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "12345",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "jjax",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8081/usuarios/4",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "usuarios",
+            "4"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Listar_usuario_por_estado",
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "12345",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "jjax",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8081/usuarios/estado/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "usuarios",
+            "estado",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Crear_nuevo_usuario",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"username\": \"jjax\",\r\n    \"password\": \"12345\",\r\n    \"email\": \"jjax-2025012@email.com\",\r\n    \"rol\": \"ADMIN\",\r\n    \"estado\": 1\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8081/usuarios",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "usuarios"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Actualizar_usuario",
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "12345",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "jjax",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"username\": \"jjax_actualizado\",\r\n    \"password\": \"nueva123\",\r\n    \"email\": \"jjax-2025012.nuevo@email.com\",\r\n    \"rol\": \"USER\",\r\n    \"estado\": 0\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8081/usuarios/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "usuarios",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Eliminar_usuario",
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "username",
+              "value": "jjax",
+              "type": "string"
+            },
+            {
+              "key": "password",
+              "value": "12345",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8081/usuarios/4",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "usuarios",
+            "4"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Listar_todo_los_productos",
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "12345",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "jjax",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8081/productos",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "productos"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Buscar_producto_por_codigo",
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "12345",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "jjax",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8081/productos/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "productos",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Listar_producto_por_estado",
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "12345",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "jjax",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8081/productos/estado/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "productos",
+            "estado",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Listar_productos_por_estock",
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "12345",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "jjax",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8081/productos/con-stock",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "productos",
+            "con-stock"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Crear_nuevo_producto",
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "12345",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "jjax",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"nombreProducto\": \"Laptop HP\",\r\n    \"precio\": 4500.00,\r\n    \"stock\": 10,\r\n    \"estado\": 1\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8081/productos",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "productos"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Actualizar_producto",
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "12345",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "jjax",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"nombreProducto\": \"Laptop HP Omen\",\r\n    \"precio\": 5500.00,\r\n    \"stock\": 8,\r\n    \"estado\": 1\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8081/productos/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "productos",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Eliminar_producto",
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "12345",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "jjax",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8081/productos/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "productos",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Listar_todas_las_ventas",
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "12345",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "jjax",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8081/ventas",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "ventas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Buscar_venta_por_codigo",
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "12345",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "jjax",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8081/ventas/4",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "ventas",
+            "4"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Listar_venta_por_estado",
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "12345",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "jjax",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8081/ventas/estado/4",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "ventas",
+            "estado",
+            "4"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Crear_nueva_venta",
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "12345",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "jjax",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"fechaVenta\": \"2026-03-25\",\r\n    \"total\": 150.00,\r\n    \"estado\": 1,\r\n    \"cliente\": {\r\n        \"dpiCliente\": \"1234567890123\"\r\n    },\r\n    \"usuario\": {\r\n        \"codigoUsuario\": 4\r\n    }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8081/ventas",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "ventas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Actualizar_venta",
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "12345",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "jjax",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"fechaVenta\": \"2026-03-26\",\r\n    \"total\": 200.00,\r\n    \"estado\": 1,\r\n    \"cliente\": {\r\n        \"dpiCliente\": \"1234567890123\"\r\n    },\r\n    \"usuario\": {\r\n        \"codigoUsuario\": 1\r\n    }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8081/ventas/4",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "ventas",
+            "4"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Eliminar_venta",
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "12345",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "jjax",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8081/ventas/4",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "ventas",
+            "4"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "listar_todos_los_detalle-venta",
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "12345",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "jjax",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8081/detalles-venta",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "detalles-venta"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Buscar_detalles-venta_por_codigo",
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "12345",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "jjax",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8081/detalles-venta/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "detalles-venta",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Listar_detalle-venta_especifica",
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "12345",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "jjax",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8081/detalles-venta/venta/4",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "detalles-venta",
+            "venta",
+            "4"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Crear_detalle-venta",
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "12345",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "jjax",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"cantidad\": 2,\r\n    \"precioUnitario\": 4500.00,\r\n    \"venta\": {\r\n        \"codigoVenta\": 4\r\n    },\r\n    \"producto\": {\r\n        \"codigoProducto\": 1\r\n    }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8081/detalles-venta",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "detalles-venta"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Actualizar_detalle-venta",
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "12345",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "jjax",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8081/detalles-venta/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "detalles-venta",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Eliminar_detalle-venta",
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "12345",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "jjax",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8081/detalles-venta/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "detalles-venta",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

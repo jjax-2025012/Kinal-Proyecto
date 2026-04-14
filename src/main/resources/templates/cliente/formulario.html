@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/base :: base(
+    titulo='Formulario de Cliente',
+    contenido=~{::section}
+)}">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario de Cliente</title>
+</head>
+<body>
+<section>
+    <form th:action="@{/clientes/guardar}" th:object="${cliente}" method="post">
+        <div class="mb-3">
+            <label for="dpiCliente" class="form-label">DPI</label>
+            <input type="text" class="form-control" id="dpiCliente" th:field="*{dpiCliente}"
+                   th:readonly="${accion == 'editar'}">
+        </div>
+        <div class="mb-3">
+            <label for="nombreCliente" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="nombreCliente" th:field="*{nombreCliente}" required>
+        </div>
+        <div class="mb-3">
+            <label for="apellidoCliente" class="form-label">Apellido</label>
+            <input type="text" class="form-control" id="apellidoCliente" th:field="*{apellidoCliente}" required>
+        </div>
+        <div class="mb-3">
+            <label for="direccion" class="form-label">Dirección</label>
+            <input type="text" class="form-control" id="direccion" th:field="*{direccion}" required>
+        </div>
+        <div class="mb-3">
+            <label for="estado" class="form-label">Estado</label>
+            <select class="form-control" id="estado" th:field="*{estado}">
+                <option th:value="1">Activo</option>
+                <option th:value="0">Inactivo</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a th:href="@{/clientes}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</section>
+</body>
+</html>

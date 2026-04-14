@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/base :: base(
+    titulo='Nueva Venta',
+    contenido=~{::section}
+)}">
+<head>
+    <meta charset="UTF-8">
+    <title>Nueva Venta</title>
+</head>
+<body>
+<section>
+    <div class="alert alert-info">
+        <strong>Nota importante:</strong> Las ventas no pueden ser editadas ni eliminadas después de creadas.
+        Solo pueden ser anuladas por cumplimiento fiscal.
+    </div>
+
+    <form th:action="@{/ventas/guardar}" th:object="${venta}" method="post">
+        <div class="mb-3">
+            <label for="cliente" class="form-label">Cliente</label>
+            <select class="form-control" id="cliente" th:field="*{cliente.dpiCliente}" required>
+                <option value="">Seleccione un cliente</option>
+                <option th:each="cliente : ${clientes}"
+                        th:value="${cliente.dpiCliente}"
+                        th:text="${cliente.nombreCliente + ' ' + cliente.apellidoCliente + ' - DPI: ' + cliente.dpiCliente}">
+                </option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="usuario" class="form-label">Usuario que registra</label>
+            <select class="form-control" id="usuario" th:field="*{usuario.codigoUsuario}" required>
+                <option value="">Seleccione un usuario</option>
+                <option th:each="usuario : ${usuarios}"
+                        th:value="${usuario.codigoUsuario}"
+                        th:text="${usuario.username + ' - ' + usuario.rol}">
+                </option>
+            </select>
+        </div>
+
+        <div class="alert alert-secondary">
+            <p><strong>Información:</strong></p>
+            <ul>
+                <li>La fecha de venta se asignará automáticamente (fecha actual)</li>
+                <li>El total se calculará automáticamente al agregar productos</li>
+                <li>Después de crear la venta, podrás agregar detalles (productos)</li>
+            </ul>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Crear Venta</button>
+        <a th:href="@{/ventas}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</section>
+</body>
+</html>

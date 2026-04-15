@@ -17,35 +17,33 @@ public class ProductoViewController {
     }
 
     @GetMapping
-    public String listarProductos(Model model) {
+    public String listar(Model model) {
         model.addAttribute("productos", productoService.listarProductos());
         return "producto/listar";
     }
 
     @GetMapping("/nuevo")
-    public String mostrarFormularioNuevo(Model model) {
+    public String nuevo(Model model) {
         model.addAttribute("producto", new Producto());
-        model.addAttribute("accion", "nuevo");
         return "producto/formulario";
     }
 
     @GetMapping("/editar/{codigo}")
-    public String mostrarFormularioEditar(@PathVariable Integer codigo, Model model) {
+    public String editar(@PathVariable Integer codigo, Model model) {
         Producto producto = productoService.buscarPorCodigo(codigo)
                 .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
         model.addAttribute("producto", producto);
-        model.addAttribute("accion", "editar");
         return "producto/formulario";
     }
 
     @PostMapping("/guardar")
-    public String guardarProducto(@ModelAttribute Producto producto) {
+    public String guardar(@ModelAttribute Producto producto) {
         productoService.guardar(producto);
         return "redirect:/productos";
     }
 
     @GetMapping("/eliminar/{codigo}")
-    public String eliminarProducto(@PathVariable Integer codigo) {
+    public String eliminar(@PathVariable Integer codigo) {
         productoService.eliminar(codigo);
         return "redirect:/productos";
     }

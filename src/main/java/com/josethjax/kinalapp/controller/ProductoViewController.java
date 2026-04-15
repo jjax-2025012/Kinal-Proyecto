@@ -38,6 +38,18 @@ public class ProductoViewController {
 
     @PostMapping("/guardar")
     public String guardar(@ModelAttribute Producto producto) {
+        // Asegurar que el estado tenga valor
+        if (producto.getEstado() != 1 && producto.getEstado() != 0) {
+            producto.setEstado(1);
+        }
+        // Asegurar que el stock no sea negativo
+        if (producto.getStock() == null || producto.getStock() < 0) {
+            producto.setStock(0);
+        }
+        // Asegurar que el precio no sea nulo
+        if (producto.getPrecio() == null) {
+            producto.setPrecio(java.math.BigDecimal.ZERO);
+        }
         productoService.guardar(producto);
         return "redirect:/productos";
     }

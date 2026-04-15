@@ -1,43 +1,50 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>Listado de Usuarios</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Usuarios - KinalApp</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body>
-<div class="container mt-4">
-  <h1>Listado de Usuarios</h1>
-  <a th:href="@{/usuarios/nuevo}" class="btn btn-primary mb-3">Nuevo Usuario</a>
-  <table class="table table-bordered">
-    <thead>
-    <tr>
-      <th>Código</th>
-      <th>Username</th>
-      <th>Email</th>
-      <th>Rol</th>
-      <th>Estado</th>
-      <th>Acciones</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="usuario : ${usuarios}">
-      <td th:text="${usuario.codigoUsuario}"></td>
-      <td th:text="${usuario.username}"></td>
-      <td th:text="${usuario.email}"></td>
-      <td th:text="${usuario.rol}"></td>
-      <td>
-        <span th:if="${usuario.estado == 1}" class="badge bg-success">Activo</span>
-        <span th:if="${usuario.estado == 0}" class="badge bg-danger">Inactivo</span>
-      </td>
-      <td>
-        <a th:href="@{/usuarios/editar/{codigo}(codigo=${usuario.codigoUsuario})}" class="btn btn-sm btn-warning">Editar</a>
-        <a th:href="@{/usuarios/eliminar/{codigo}(codigo=${usuario.codigoUsuario})}" class="btn btn-sm btn-danger" onclick="return confirm('¿Eliminar?')">Eliminar</a>
-      </td>
-    </tr>
-    </tbody>
-  </table>
-  <a th:href="@{/}" class="btn btn-secondary">Volver al Inicio</a>
+<div class="app-container">
+    <div th:replace="fragments/sidebar :: sidebar"></div>
+
+    <main class="main-content">
+        <div class="top-bar">
+            <h1>Gestion de Usuarios</h1>
+            <a th:href="@{/usuarios/nuevo}" class="btn-primary"> Nuevo Usuario</a>
+        </div>
+
+        <table class="data-table">
+            <thead>
+            <tr>
+                <th>Codigo</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Rol</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="usuario : ${usuarios}">
+                <td th:text="${usuario.codigoUsuario}"></td>
+                <td th:text="${usuario.username}"></td>
+                <td th:text="${usuario.email}"></td>
+                <td th:text="${usuario.rol}"></td>
+                <td>
+                    <span th:if="${usuario.estado == 1}" class="badge-success">Activo</span>
+                    <span th:if="${usuario.estado == 0}" class="badge-danger">Inactivo</span>
+                </td>
+                <td>
+                    <a th:href="@{/usuarios/editar/{codigo}(codigo=${usuario.codigoUsuario})}" class="btn-warning">Editar</a>
+                    <a th:href="@{/usuarios/eliminar/{codigo}(codigo=${usuario.codigoUsuario})}" class="btn-danger" onclick="return confirm('Eliminar este usuario?')">Eliminar</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </main>
 </div>
 </body>
 </html>

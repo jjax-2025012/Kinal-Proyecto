@@ -1,8 +1,5 @@
 package com.josethjax.kinalapp.Service;
 
-import com.josethjax.kinalapp.Service.IDetalleVentaService;
-import com.josethjax.kinalapp.Service.IProductoService;
-import com.josethjax.kinalapp.Service.IVentaService;
 import com.josethjax.kinalapp.entity.DetalleVenta;
 import com.josethjax.kinalapp.entity.Producto;
 import com.josethjax.kinalapp.entity.Venta;
@@ -69,7 +66,7 @@ public class DetalleVentaService implements IDetalleVentaService {
 
         DetalleVenta detalleGuardado = detalleVentaRepository.save(detalleVenta);
 
-        // Actualizar total de la venta
+        // CORREGIDO: Actualizar total de la venta después de guardar
         actualizarTotalVenta(detalleVenta.getVenta().getCodigoVenta());
 
         return detalleGuardado;

@@ -10,10 +10,4 @@ public class ViewController {
     public String index() {
         return "index";
     }
-
-    @GetMapping("/login")
-    public String login() {
-        // Redirige al index porque ya no hay seguridad
-        return "redirect:/";
-    }
 }

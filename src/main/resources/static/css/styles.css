@@ -1,18 +1,69 @@
-/* Estilos personalizados */
+/* Estilos personalizados KinalApp */
+
+/* Colores corporativos */
+:root {
+    --azul-kinal: #004A99;
+    --naranja-kinal: #F57F20;
+    --gris-kinal: #555555;
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
 }
 
+/* Navbar personalizado */
+.navbar-brand {
+    font-weight: bold;
+    color: var(--naranja-kinal) !important;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: var(--naranja-kinal) !important;
+}
+
+/* Botones con colores corporativos */
+.btn-primary {
+    background-color: var(--azul-kinal);
+    border-color: var(--azul-kinal);
+}
+
+.btn-primary:hover {
+    background-color: #003d7a;
+    border-color: #003d7a;
+}
+
+.btn-warning {
+    background-color: var(--naranja-kinal);
+    border-color: var(--naranja-kinal);
+    color: white;
+}
+
+.btn-warning:hover {
+    background-color: #e06a10;
+    border-color: #e06a10;
+    color: white;
+}
+
+/* Tablas */
 .table {
-    margin-top: 20px;
+    background-color: white;
 }
 
-.btn {
-    margin-right: 5px;
+.table thead.table-dark {
+    background-color: var(--azul-kinal) !important;
 }
 
+/* Badges */
+.badge.bg-success {
+    background-color: var(--azul-kinal) !important;
+}
+
+.badge.bg-warning {
+    background-color: var(--naranja-kinal) !important;
+}
+
+/* Footer */
 footer {
-    position: relative;
-    bottom: 0;
-    width: 100%;
+    background-color: var(--gris-kinal) !important;
 }

@@ -92,6 +92,21 @@ public class ProductoService implements IProductoService {
         return productoRepository.existsById(codigoProducto);
     }
 
+    @Override
+    public void actualizarStock(Integer codigo, int cantidad) {
+        Producto producto = productoRepository.findById(codigo)
+                .orElseThrow(() -> new RuntimeException("Producto no encontrado con código: " + codigo));
+
+        int nuevoStock = producto.getStock() - cantidad;
+
+        if (nuevoStock < 0) {
+            throw new IllegalArgumentException("Stock insuficiente. Stock actual: " + producto.getStock() + ", Cantidad solicitada: " + cantidad);
+        }
+
+        producto.setStock(nuevoStock);
+        productoRepository.save(producto);
+    }
+
     private void validarProducto(Producto producto) {
         if (producto.getNombreProducto() == null || producto.getNombreProducto().trim().isEmpty()) {
             throw new IllegalArgumentException("El nombre del producto es obligatorio");

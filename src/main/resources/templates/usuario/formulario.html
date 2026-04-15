@@ -1,56 +1,44 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/base :: base(
-    titulo='Formulario de Usuario',
-    contenido=~{::section}
-)}">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Formulario de Usuario</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<section>
+<div class="container mt-4">
+    <h1>Formulario de Usuario</h1>
     <form th:action="@{/usuarios/guardar}" th:object="${usuario}" method="post">
-        <!-- Campo oculto para el código en caso de edición -->
         <input type="hidden" th:field="*{codigoUsuario}">
-
         <div class="mb-3">
-            <label for="username" class="form-label">Username</label>
-            <input type="text" class="form-control" id="username" th:field="*{username}" required>
-            <small class="text-muted">Nombre de usuario único para iniciar sesión</small>
+            <label>Username</label>
+            <input type="text" class="form-control" th:field="*{username}" required>
         </div>
-
         <div class="mb-3">
-            <label for="password" class="form-label">Contraseña</label>
-            <input type="password" class="form-control" id="password" th:field="*{password}"
-                   th:required="${accion == 'nuevo'}">
-            <small class="text-muted" th:if="${accion == 'editar'}">Dejar en blanco para mantener la contraseña actual</small>
-            <small class="text-muted" th:if="${accion == 'nuevo'}">Mínimo 4 caracteres</small>
+            <label>Password</label>
+            <input type="password" class="form-control" th:field="*{password}" required>
         </div>
-
         <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email" th:field="*{email}" required>
+            <label>Email</label>
+            <input type="email" class="form-control" th:field="*{email}" required>
         </div>
-
         <div class="mb-3">
-            <label for="rol" class="form-label">Rol</label>
-            <select class="form-control" id="rol" th:field="*{rol}" required>
-                <option value="USER">USER - Usuario estándar</option>
-                <option value="ADMIN">ADMIN - Administrador</option>
+            <label>Rol</label>
+            <select class="form-control" th:field="*{rol}">
+                <option value="USER">USER</option>
+                <option value="ADMIN">ADMIN</option>
             </select>
         </div>
-
         <div class="mb-3">
-            <label for="estado" class="form-label">Estado</label>
-            <select class="form-control" id="estado" th:field="*{estado}">
+            <label>Estado</label>
+            <select class="form-control" th:field="*{estado}">
                 <option th:value="1">Activo</option>
                 <option th:value="0">Inactivo</option>
             </select>
         </div>
-
         <button type="submit" class="btn btn-primary">Guardar</button>
         <a th:href="@{/usuarios}" class="btn btn-secondary">Cancelar</a>
     </form>
-</section>
+</div>
 </body>
 </html>

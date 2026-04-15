@@ -12,37 +12,22 @@
     <hr>
     <div class="mt-auto">
         <p id="usernameDisplay" class="small text-center"></p>
-        <button onclick="cerrarSesion()" class="btn btn-danger btn-sm w-100">Cerrar Sesión</button>
+        <a href="/login" class="btn btn-danger btn-sm w-100"
+           onclick="sessionStorage.clear(); document.cookie.split(';').forEach(function(c) { document.cookie = c.replace(/^ +/, '').replace(/=.*/, '=;path=/;expires=' + new Date().toUTCString()); });">
+            Cerrar Sesión
+        </a>
     </div>
 </div>
 
 <script>
-    function cerrarSesion() {
-        // Limpiar sessionStorage
-        sessionStorage.removeItem('usuario');
-
-        // Limpiar cookies
-        document.cookie = 'usuario=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-        document.cookie = 'username=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-
-        // Redirigir al login
-        window.location.href = '/login';
-    }
-
-    // Mostrar nombre de usuario si existe
-    const usuarioData = sessionStorage.getItem('usuario');
-    const usernameDisplay = document.getElementById('usernameDisplay');
-
+    // Mostrar nombre de usuario
+    var usuarioData = sessionStorage.getItem('usuario');
+    var usernameDisplay = document.getElementById('usernameDisplay');
     if (usuarioData && usernameDisplay) {
         try {
-            const usuario = JSON.parse(usuarioData);
+            var usuario = JSON.parse(usuarioData);
             usernameDisplay.textContent = '👤 ' + usuario.username;
-        } catch (e) {
-            console.error('Error al parsear usuario:', e);
-            usernameDisplay.textContent = '👤 Usuario';
-        }
-    } else if (usernameDisplay) {
-        usernameDisplay.textContent = '👤 Usuario';
+        } catch(e) {}
     }
 </script>
 </html>

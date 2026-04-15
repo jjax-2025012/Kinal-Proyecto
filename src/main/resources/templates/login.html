@@ -2,78 +2,68 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>KinalApp - Inicio de Sesion</title>
+    <title>Login - KinalApp</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/styles.css}">
-    <style>
-        .login-card {
-            max-width: 420px;
-            margin: 0 auto;
-        }
-    </style>
 </head>
-<body class="login-body">
-<div class="login-container">
-    <div class="login-card">
-        <div class="login-header">
-            <img th:src="@{/img/logo.png}" alt="KinalApp Logo">
-            <h2>KinalApp</h2>
-            <p>Gestion Eficiente de Ventas</p>
-        </div>
-        <div class="login-body-form">
-            <form id="loginForm">
-                <div class="form-group">
-                    <label>Usuario</label>
-                    <input type="text" id="username" class="form-control" placeholder="Ingrese su usuario" required autofocus>
+<body class="bg-light">
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-4">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white text-center">
+                    <h3>KinalApp</h3>
+                    <small>Sistema de Gestión de Ventas</small>
                 </div>
-                <div class="form-group">
-                    <label>Contrasena</label>
-                    <input type="password" id="password" class="form-control" placeholder="Ingrese su contrasena" required>
+                <div class="card-body">
+                    <form id="loginForm">
+                        <div class="mb-3">
+                            <label>Usuario</label>
+                            <input type="text" id="username" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label>Contraseña</label>
+                            <input type="password" id="password" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Iniciar Sesión</button>
+                        <div id="errorMessage" class="alert alert-danger mt-3" style="display: none;"></div>
+                    </form>
+                    <div class="text-center mt-3">
+                        <a data-bs-toggle="modal" data-bs-target="#registerModal">Registrarse</a>
+                    </div>
                 </div>
-                <button type="submit" class="btn-login">Iniciar Sesion</button>
-                <div id="errorMessage" class="alert alert-danger" style="display: none; margin-top: 15px;"></div>
-            </form>
-
-            <div class="register-link">
-                <span>No tienes cuenta? </span>
-                <a data-bs-toggle="modal" data-bs-target="#registerModal"> Registrate aqui</a>
             </div>
-        </div>
-        <div class="text-center text-muted py-3" style="font-size: 0.75rem; border-top: 1px solid #e0e0e0;">
-            <span> 2026 KinalApp - Todos los derechos reservados</span>
         </div>
     </div>
 </div>
 
 <!-- Modal de Registro -->
-<div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+<div class="modal fade" id="registerModal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header" style="background: var(--gradiente-azul); color: white;">
-                <h5 class="modal-title" id="registerModalLabel"> Registro de Nuevo Usuario</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">Registro de Usuario</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
                 <form id="registerForm">
-                    <div class="form-group">
+                    <div class="mb-3">
                         <label>Usuario</label>
                         <input type="text" id="regUsername" class="form-control" required>
-                        <small class="text-muted">Minimo 3 caracteres</small>
                     </div>
-                    <div class="form-group">
-                        <label>Correo Electronico</label>
+                    <div class="mb-3">
+                        <label>Email</label>
                         <input type="email" id="regEmail" class="form-control" required>
                     </div>
-                    <div class="form-group">
-                        <label>Contrasena</label>
+                    <div class="mb-3">
+                        <label>Contraseña</label>
                         <input type="password" id="regPassword" class="form-control" required>
-                        <small class="text-muted">Minimo 4 caracteres</small>
                     </div>
-                    <div class="form-group">
-                        <label>Confirmar Contrasena</label>
+                    <div class="mb-3">
+                        <label>Confirmar Contraseña</label>
                         <input type="password" id="regConfirmPassword" class="form-control" required>
                     </div>
-                    <div class="form-group">
+                    <div class="mb-3">
                         <label>Rol</label>
                         <select id="regRol" class="form-control">
                             <option value="USER">Usuario Normal</option>
@@ -106,10 +96,7 @@
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
         const errorDiv = document.getElementById('errorMessage');
-        const submitBtn = document.querySelector('.btn-login');
 
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Validando...';
         errorDiv.style.display = 'none';
 
         try {
@@ -126,19 +113,14 @@
                 const expires = new Date();
                 expires.setHours(expires.getHours() + 8);
                 document.cookie = `usuario=${encodeURIComponent(JSON.stringify(data))}; path=/; expires=${expires.toUTCString()}`;
-                document.cookie = `username=${encodeURIComponent(username)}; path=/; expires=${expires.toUTCString()}`;
                 window.location.href = '/clientes';
             } else {
                 errorDiv.style.display = 'block';
-                errorDiv.textContent = data.error || 'Credenciales invalidas';
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Iniciar Sesion';
+                errorDiv.textContent = data.error || 'Credenciales inválidas';
             }
         } catch (error) {
             errorDiv.style.display = 'block';
-            errorDiv.textContent = 'Error de conexion con el servidor';
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'Iniciar Sesion';
+            errorDiv.textContent = 'Error de conexión con el servidor';
         }
     });
 
@@ -161,31 +143,13 @@
             return;
         }
 
-        if (!email.includes('@') || !email.includes('.')) {
-            errorDiv.textContent = 'Ingrese un correo electronico valido';
-            errorDiv.style.display = 'block';
-            return;
-        }
-
-        if (password.length < 4) {
-            errorDiv.textContent = 'La contrasena debe tener al menos 4 caracteres';
-            errorDiv.style.display = 'block';
-            return;
-        }
-
         if (password !== confirmPassword) {
-            errorDiv.textContent = 'Las contrasenas no coinciden';
+            errorDiv.textContent = 'Las contraseñas no coinciden';
             errorDiv.style.display = 'block';
             return;
         }
 
-        const nuevoUsuario = {
-            username: username,
-            email: email,
-            password: password,
-            rol: rol,
-            estado: 1
-        };
+        const nuevoUsuario = { username, email, password, rol, estado: 1 };
 
         try {
             const response = await fetch('/api/usuarios', {
@@ -194,40 +158,23 @@
                 body: JSON.stringify(nuevoUsuario)
             });
 
-            const data = await response.json();
-
             if (response.ok) {
-                successDiv.textContent = ' Usuario registrado exitosamente. Ya puedes iniciar sesion.';
+                successDiv.textContent = 'Usuario registrado exitosamente';
                 successDiv.style.display = 'block';
-
-                document.getElementById('regUsername').value = '';
-                document.getElementById('regEmail').value = '';
-                document.getElementById('regPassword').value = '';
-                document.getElementById('regConfirmPassword').value = '';
-
                 setTimeout(() => {
                     registerModal.hide();
                     document.getElementById('username').value = username;
                 }, 2000);
             } else {
-                errorDiv.textContent = data.error || data.message || 'Error al registrar usuario';
+                const data = await response.json();
+                errorDiv.textContent = data.error || 'Error al registrar';
                 errorDiv.style.display = 'block';
             }
         } catch (error) {
-            errorDiv.textContent = 'Error de conexion con el servidor';
+            errorDiv.textContent = 'Error de conexión';
             errorDiv.style.display = 'block';
         }
     }
-
-    function checkExistingSession() {
-        const cookies = document.cookie.split(';');
-        const hasUserCookie = cookies.some(cookie => cookie.trim().startsWith('usuario='));
-        if (hasUserCookie && window.location.pathname === '/login') {
-            window.location.href = '/clientes';
-        }
-    }
-
-    checkExistingSession();
 </script>
 </body>
 </html>

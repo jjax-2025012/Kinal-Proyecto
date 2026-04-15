@@ -7,22 +7,22 @@
     <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body>
-<div class="app-container">
+<div class="d-flex">
     <div th:replace="fragments/sidebar :: sidebar"></div>
 
-    <main class="main-content">
-        <div class="top-bar">
-            <h1>Gestion de Clientes</h1>
-            <a th:href="@{/clientes/nuevo}" class="btn-primary"> Nuevo Cliente</a>
+    <div class="container-fluid p-4">
+        <div class="d-flex justify-content-between mb-3">
+            <h1>Clientes</h1>
+            <a th:href="@{/clientes/nuevo}" class="btn btn-primary">Nuevo Cliente</a>
         </div>
 
-        <table class="data-table">
-            <thead>
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
             <tr>
                 <th>DPI</th>
                 <th>Nombre</th>
                 <th>Apellido</th>
-                <th>Direccion</th>
+                <th>Dirección</th>
                 <th>Estado</th>
                 <th>Acciones</th>
             </tr>
@@ -34,17 +34,18 @@
                 <td th:text="${cliente.apellidoCliente}"></td>
                 <td th:text="${cliente.direccion}"></td>
                 <td>
-                    <span th:if="${cliente.estado == 1}" class="badge-success">Activo</span>
-                    <span th:if="${cliente.estado == 0}" class="badge-danger">Inactivo</span>
+                    <span th:if="${cliente.estado == 1}" class="badge bg-success">Activo</span>
+                    <span th:if="${cliente.estado == 0}" class="badge bg-danger">Inactivo</span>
                 </td>
                 <td>
-                    <a th:href="@{/clientes/editar/{dpi}(dpi=${cliente.dpiCliente})}" class="btn-warning">Editar</a>
-                    <a th:href="@{/clientes/eliminar/{dpi}(dpi=${cliente.dpiCliente})}" class="btn-danger" onclick="return confirm('Eliminar este cliente?')">Eliminar</a>
+                    <a th:href="@{/clientes/editar/{dpi}(dpi=${cliente.dpiCliente})}" class="btn btn-sm btn-warning">Editar</a>
+                    <a th:href="@{/clientes/eliminar/{dpi}(dpi=${cliente.dpiCliente})}" class="btn btn-sm btn-danger" onclick="return confirm('¿Eliminar?')">Eliminar</a>
                 </td>
             </tr>
             </tbody>
         </table>
-    </main>
+        <a th:href="@{/}" class="btn btn-secondary">Volver al Inicio</a>
+    </div>
 </div>
 </body>
 </html>

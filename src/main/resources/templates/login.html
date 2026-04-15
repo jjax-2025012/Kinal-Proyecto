@@ -2,116 +2,45 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Login - KinalApp</title>
+    <title>KinalApp - Inicio de Sesion</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
     <style>
-        body {
-            background: linear-gradient(135deg, #004A99 0%, #002d5e 100%);
-            min-height: 100vh;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
         .login-card {
-            max-width: 400px;
-            margin: 80px auto;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            border: none;
-        }
-        .card-header {
-            background: linear-gradient(135deg, #004A99 0%, #003d7a 100%);
-            border-radius: 15px 15px 0 0 !important;
-            padding: 20px;
-        }
-        .btn-kinal {
-            background-color: #F57F20;
-            border-color: #F57F20;
-            color: white;
-            font-weight: 500;
-            padding: 12px;
-            transition: all 0.3s ease;
-        }
-        .btn-kinal:hover {
-            background-color: #e06a10;
-            transform: translateY(-2px);
-            color: white;
-        }
-        .btn-registro {
-            background-color: #28a745;
-            border-color: #28a745;
-            color: white;
-            font-weight: 500;
-            padding: 12px;
-            transition: all 0.3s ease;
-        }
-        .btn-registro:hover {
-            background-color: #218838;
-            transform: translateY(-2px);
-            color: white;
-        }
-        .alert-error {
-            display: none;
-            margin-top: 15px;
-        }
-        .alert-success {
-            display: none;
-            margin-top: 15px;
-        }
-        .logo-icon {
-            font-size: 48px;
-            margin-bottom: 10px;
-        }
-        .register-link {
-            text-align: center;
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid #dee2e6;
-        }
-        .register-link a {
-            color: #F57F20;
-            text-decoration: none;
-            cursor: pointer;
-        }
-        .register-link a:hover {
-            text-decoration: underline;
-        }
-        .modal-header {
-            background: linear-gradient(135deg, #004A99 0%, #003d7a 100%);
-            color: white;
-        }
-        .btn-close-white {
-            filter: brightness(0) invert(1);
+            max-width: 420px;
+            margin: 0 auto;
         }
     </style>
 </head>
-<body>
-<div class="container">
-    <div class="card login-card">
-        <div class="card-header text-white text-center">
-            <div class="logo-icon">🏪</div>
-            <h3>KinalApp</h3>
-            <small>Sistema de Gestión de Ventas</small>
+<body class="login-body">
+<div class="login-container">
+    <div class="login-card">
+        <div class="login-header">
+            <img th:src="@{/img/logo.png}" alt="KinalApp Logo">
+            <h2>KinalApp</h2>
+            <p>Gestion Eficiente de Ventas</p>
         </div>
-        <div class="card-body">
+        <div class="login-body-form">
             <form id="loginForm">
-                <div class="mb-3">
-                    <label class="form-label">Usuario</label>
+                <div class="form-group">
+                    <label>Usuario</label>
                     <input type="text" id="username" class="form-control" placeholder="Ingrese su usuario" required autofocus>
                 </div>
-                <div class="mb-3">
-                    <label class="form-label">Contraseña</label>
-                    <input type="password" id="password" class="form-control" placeholder="Ingrese su contraseña" required>
+                <div class="form-group">
+                    <label>Contrasena</label>
+                    <input type="password" id="password" class="form-control" placeholder="Ingrese su contrasena" required>
                 </div>
-                <button type="submit" class="btn btn-kinal w-100">Iniciar Sesión</button>
-                <div id="errorMessage" class="alert alert-danger alert-error"></div>
+                <button type="submit" class="btn-login">Iniciar Sesion</button>
+                <div id="errorMessage" class="alert alert-danger" style="display: none; margin-top: 15px;"></div>
             </form>
 
             <div class="register-link">
-                <span>¿No tienes cuenta? </span>
-                <a data-bs-toggle="modal" data-bs-target="#registerModal">Regístrate aquí</a>
+                <span>No tienes cuenta? </span>
+                <a data-bs-toggle="modal" data-bs-target="#registerModal"> Registrate aqui</a>
             </div>
         </div>
-        <div class="card-footer text-center text-muted">
-            <small>© 2026 KinalApp - Todos los derechos reservados</small>
+        <div class="text-center text-muted py-3" style="font-size: 0.75rem; border-top: 1px solid #e0e0e0;">
+            <span> 2026 KinalApp - Todos los derechos reservados</span>
         </div>
     </div>
 </div>
@@ -120,37 +49,36 @@
 <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="registerModalLabel">📝 Registro de Nuevo Usuario</h5>
+            <div class="modal-header" style="background: var(--gradiente-azul); color: white;">
+                <h5 class="modal-title" id="registerModalLabel"> Registro de Nuevo Usuario</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form id="registerForm">
-                    <div class="mb-3">
-                        <label class="form-label">Usuario *</label>
+                    <div class="form-group">
+                        <label>Usuario</label>
                         <input type="text" id="regUsername" class="form-control" required>
-                        <small class="text-muted">Mínimo 3 caracteres</small>
+                        <small class="text-muted">Minimo 3 caracteres</small>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label">Correo Electrónico *</label>
+                    <div class="form-group">
+                        <label>Correo Electronico</label>
                         <input type="email" id="regEmail" class="form-control" required>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label">Contraseña *</label>
+                    <div class="form-group">
+                        <label>Contrasena</label>
                         <input type="password" id="regPassword" class="form-control" required>
-                        <small class="text-muted">Mínimo 4 caracteres</small>
+                        <small class="text-muted">Minimo 4 caracteres</small>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label">Confirmar Contraseña *</label>
+                    <div class="form-group">
+                        <label>Confirmar Contrasena</label>
                         <input type="password" id="regConfirmPassword" class="form-control" required>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label">Rol</label>
+                    <div class="form-group">
+                        <label>Rol</label>
                         <select id="regRol" class="form-control">
                             <option value="USER">Usuario Normal</option>
                             <option value="ADMIN">Administrador</option>
                         </select>
-                        <small class="text-muted">El rol ADMIN tiene permisos especiales</small>
                     </div>
                     <div id="registerError" class="alert alert-danger" style="display: none;"></div>
                     <div id="registerSuccess" class="alert alert-success" style="display: none;"></div>
@@ -158,7 +86,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-registro" onclick="registrarUsuario()">Registrarse</button>
+                <button type="button" class="btn btn-primary" onclick="registrarUsuario()">Registrarse</button>
             </div>
         </div>
     </div>
@@ -166,22 +94,19 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    // Variables globales
     let registerModal;
 
-    // Inicializar modal cuando el DOM esté listo
     document.addEventListener('DOMContentLoaded', function() {
         registerModal = new bootstrap.Modal(document.getElementById('registerModal'));
     });
 
-    // Login
     document.getElementById('loginForm').addEventListener('submit', async function(e) {
         e.preventDefault();
 
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
         const errorDiv = document.getElementById('errorMessage');
-        const submitBtn = document.querySelector('#loginForm button[type="submit"]');
+        const submitBtn = document.querySelector('.btn-login');
 
         submitBtn.disabled = true;
         submitBtn.textContent = 'Validando...';
@@ -190,9 +115,7 @@
         try {
             const response = await fetch('/api/auth/login', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username, password })
             });
 
@@ -200,29 +123,25 @@
 
             if (response.ok) {
                 sessionStorage.setItem('usuario', JSON.stringify(data));
-
                 const expires = new Date();
                 expires.setHours(expires.getHours() + 8);
                 document.cookie = `usuario=${encodeURIComponent(JSON.stringify(data))}; path=/; expires=${expires.toUTCString()}`;
                 document.cookie = `username=${encodeURIComponent(username)}; path=/; expires=${expires.toUTCString()}`;
-
                 window.location.href = '/clientes';
             } else {
                 errorDiv.style.display = 'block';
-                errorDiv.textContent = data.error || 'Credenciales inválidas';
+                errorDiv.textContent = data.error || 'Credenciales invalidas';
                 submitBtn.disabled = false;
-                submitBtn.textContent = 'Iniciar Sesión';
+                submitBtn.textContent = 'Iniciar Sesion';
             }
         } catch (error) {
-            console.error('Error:', error);
             errorDiv.style.display = 'block';
-            errorDiv.textContent = 'Error de conexión con el servidor';
+            errorDiv.textContent = 'Error de conexion con el servidor';
             submitBtn.disabled = false;
-            submitBtn.textContent = 'Iniciar Sesión';
+            submitBtn.textContent = 'Iniciar Sesion';
         }
     });
 
-    // Función para registrar usuario
     async function registrarUsuario() {
         const username = document.getElementById('regUsername').value.trim();
         const email = document.getElementById('regEmail').value.trim();
@@ -233,11 +152,9 @@
         const errorDiv = document.getElementById('registerError');
         const successDiv = document.getElementById('registerSuccess');
 
-        // Limpiar mensajes anteriores
         errorDiv.style.display = 'none';
         successDiv.style.display = 'none';
 
-        // Validaciones
         if (username.length < 3) {
             errorDiv.textContent = 'El usuario debe tener al menos 3 caracteres';
             errorDiv.style.display = 'block';
@@ -245,19 +162,19 @@
         }
 
         if (!email.includes('@') || !email.includes('.')) {
-            errorDiv.textContent = 'Ingrese un correo electrónico válido';
+            errorDiv.textContent = 'Ingrese un correo electronico valido';
             errorDiv.style.display = 'block';
             return;
         }
 
         if (password.length < 4) {
-            errorDiv.textContent = 'La contraseña debe tener al menos 4 caracteres';
+            errorDiv.textContent = 'La contrasena debe tener al menos 4 caracteres';
             errorDiv.style.display = 'block';
             return;
         }
 
         if (password !== confirmPassword) {
-            errorDiv.textContent = 'Las contraseñas no coinciden';
+            errorDiv.textContent = 'Las contrasenas no coinciden';
             errorDiv.style.display = 'block';
             return;
         }
@@ -267,35 +184,29 @@
             email: email,
             password: password,
             rol: rol,
-            estado: 1  // Activo por defecto
+            estado: 1
         };
 
         try {
             const response = await fetch('/api/usuarios', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(nuevoUsuario)
             });
 
             const data = await response.json();
 
             if (response.ok) {
-                successDiv.textContent = '✅ Usuario registrado exitosamente. Ya puedes iniciar sesión.';
+                successDiv.textContent = ' Usuario registrado exitosamente. Ya puedes iniciar sesion.';
                 successDiv.style.display = 'block';
 
-                // Limpiar formulario
                 document.getElementById('regUsername').value = '';
                 document.getElementById('regEmail').value = '';
                 document.getElementById('regPassword').value = '';
                 document.getElementById('regConfirmPassword').value = '';
-                document.getElementById('regRol').value = 'USER';
 
-                // Cerrar modal después de 2 segundos
                 setTimeout(() => {
                     registerModal.hide();
-                    // Opcional: auto-llenar el campo usuario
                     document.getElementById('username').value = username;
                 }, 2000);
             } else {
@@ -303,25 +214,11 @@
                 errorDiv.style.display = 'block';
             }
         } catch (error) {
-            console.error('Error:', error);
-            errorDiv.textContent = 'Error de conexión con el servidor';
+            errorDiv.textContent = 'Error de conexion con el servidor';
             errorDiv.style.display = 'block';
         }
     }
 
-    // Permitir registro con Enter en los campos del modal
-    document.getElementById('regPassword').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            registrarUsuario();
-        }
-    });
-    document.getElementById('regConfirmPassword').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            registrarUsuario();
-        }
-    });
-
-    // Verificar sesión existente
     function checkExistingSession() {
         const cookies = document.cookie.split(';');
         const hasUserCookie = cookies.some(cookie => cookie.trim().startsWith('usuario='));

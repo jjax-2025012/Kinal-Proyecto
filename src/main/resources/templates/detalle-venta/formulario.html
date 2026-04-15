@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Agregar Producto a Venta</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-4">
+    <h1>Agregar Producto a Venta #<span th:text="${codigoVenta}"></span></h1>
+
+    <form th:action="@{/detalles-venta/guardar}" method="post">
+        <input type="hidden" name="codigoVenta" th:value="${codigoVenta}">
+
+        <div class="mb-3">
+            <label>Producto</label>
+            <select class="form-control" name="productoId" required>
+                <option value="">Seleccione un producto</option>
+                <option th:each="producto : ${productos}"
+                        th:value="${producto.codigoProducto}"
+                        th:text="${producto.nombreProducto} + ' - Stock: ' + ${producto.stock} + ' - Precio: Q' + ${producto.precio}">
+                </option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label>Cantidad</label>
+            <input type="number" class="form-control" name="cantidad" min="1" required>
+        </div>
+
+        <div class="mb-3">
+            <label>Precio Unitario</label>
+            <input type="number" step="0.01" class="form-control" name="precioUnitario" min="0.01" required>
+            <small class="text-muted">Puede modificar el precio si es necesario</small>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Agregar Producto</button>
+        <a th:href="@{/ventas/detalle/{codigo}(codigo=${codigoVenta})}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+</body>
+</html>

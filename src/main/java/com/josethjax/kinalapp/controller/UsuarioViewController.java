@@ -17,35 +17,33 @@ public class UsuarioViewController {
     }
 
     @GetMapping
-    public String listarUsuarios(Model model) {
+    public String listar(Model model) {
         model.addAttribute("usuarios", usuarioService.listarUsuarios());
         return "usuario/listar";
     }
 
     @GetMapping("/nuevo")
-    public String mostrarFormularioNuevo(Model model) {
+    public String nuevo(Model model) {
         model.addAttribute("usuario", new Usuario());
-        model.addAttribute("accion", "nuevo");
         return "usuario/formulario";
     }
 
     @GetMapping("/editar/{codigo}")
-    public String mostrarFormularioEditar(@PathVariable Integer codigo, Model model) {
+    public String editar(@PathVariable Integer codigo, Model model) {
         Usuario usuario = usuarioService.buscarPorCodigo(codigo)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
         model.addAttribute("usuario", usuario);
-        model.addAttribute("accion", "editar");
         return "usuario/formulario";
     }
 
     @PostMapping("/guardar")
-    public String guardarUsuario(@ModelAttribute Usuario usuario) {
+    public String guardar(@ModelAttribute Usuario usuario) {
         usuarioService.guardar(usuario);
         return "redirect:/usuarios";
     }
 
     @GetMapping("/eliminar/{codigo}")
-    public String eliminarUsuario(@PathVariable Integer codigo) {
+    public String eliminar(@PathVariable Integer codigo) {
         usuarioService.eliminar(codigo);
         return "redirect:/usuarios";
     }

@@ -9,17 +9,17 @@
 <div class="container mt-4">
     <h1>Nueva Venta</h1>
     <div class="alert alert-info">Las ventas no se pueden editar ni eliminar. Solo anular.</div>
-    <form th:action="@{/ventas/guardar}" th:object="${venta}" method="post">
+    <form th:action="@{/ventas/guardar}" method="post">
         <div class="mb-3">
             <label>Cliente</label>
-            <select class="form-control" th:field="*{cliente.dpiCliente}" required>
+            <select class="form-control" name="cliente.dpiCliente" required>
                 <option value="">Seleccione un cliente</option>
                 <option th:each="cliente : ${clientes}" th:value="${cliente.dpiCliente}" th:text="${cliente.nombreCliente} + ' ' + ${cliente.apellidoCliente} + ' - ' + ${cliente.dpiCliente}"></option>
             </select>
         </div>
         <div class="mb-3">
             <label>Usuario</label>
-            <select class="form-control" th:field="*{usuario.codigoUsuario}" required>
+            <select class="form-control" name="usuario.codigoUsuario" required>
                 <option value="">Seleccione un usuario</option>
                 <option th:each="usuario : ${usuarios}" th:value="${usuario.codigoUsuario}" th:text="${usuario.username} + ' - ' + ${usuario.rol}"></option>
             </select>

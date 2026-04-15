@@ -38,10 +38,6 @@ public class ClienteViewController {
 
     @PostMapping("/guardar")
     public String guardar(@ModelAttribute Cliente cliente) {
-        // Asegurar que el estado tenga valor
-        if (cliente.getEstado() != 1 && cliente.getEstado() != 0) {
-            cliente.setEstado(1);
-        }
         clienteService.guardar(cliente);
         return "redirect:/clientes";
     }

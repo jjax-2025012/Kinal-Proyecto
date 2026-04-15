@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.math.BigDecimal;
 
 @Controller
 @RequestMapping("/ventas")
@@ -63,7 +64,8 @@ public class VentaViewController {
 
             Venta venta = new Venta();
             venta.setFechaVenta(LocalDate.now());
-            venta.setTotal(java.math.BigDecimal.ZERO);
+            // CORREGIDO: Total inicia en 0, se actualizará con los detalles
+            venta.setTotal(BigDecimal.ZERO);
             venta.setEstado(1);
             venta.setCliente(cliente);
             venta.setUsuario(usuario);
@@ -71,13 +73,14 @@ public class VentaViewController {
             Venta guardada = ventaService.guardar(venta);
             log.info("Venta creada exitosamente con ID: {}", guardada.getCodigoVenta());
 
+            // Redirigir al detalle para agregar productos
+            return "redirect:/ventas/detalle/" + guardada.getCodigoVenta();
+
         } catch (Exception e) {
             log.error("ERROR al crear venta: {}", e.getMessage());
             e.printStackTrace();
             throw e;
         }
-
-        return "redirect:/ventas";
     }
 
     @GetMapping("/anular/{codigo}")

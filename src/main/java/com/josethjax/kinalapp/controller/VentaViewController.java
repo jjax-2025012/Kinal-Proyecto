@@ -18,31 +18,28 @@ public class VentaViewController {
     private final IClienteService clienteService;
     private final IUsuarioService usuarioService;
 
-    public VentaViewController(IVentaService ventaService,
-                               IClienteService clienteService,
-                               IUsuarioService usuarioService) {
+    public VentaViewController(IVentaService ventaService, IClienteService clienteService, IUsuarioService usuarioService) {
         this.ventaService = ventaService;
         this.clienteService = clienteService;
         this.usuarioService = usuarioService;
     }
 
     @GetMapping
-    public String listarVentas(Model model) {
+    public String listar(Model model) {
         model.addAttribute("ventas", ventaService.listarVentas());
         return "venta/listar";
     }
 
     @GetMapping("/nuevo")
-    public String mostrarFormularioNuevo(Model model) {
+    public String nuevo(Model model) {
         model.addAttribute("venta", new Venta());
         model.addAttribute("clientes", clienteService.listarClientes());
         model.addAttribute("usuarios", usuarioService.listarUsuarios());
-        model.addAttribute("accion", "nuevo");
         return "venta/formulario";
     }
 
     @PostMapping("/guardar")
-    public String guardarVenta(@ModelAttribute Venta venta) {
+    public String guardar(@ModelAttribute Venta venta) {
         venta.setFechaVenta(LocalDate.now());
         venta.setTotal(java.math.BigDecimal.ZERO);
         venta.setEstado(1);
@@ -51,16 +48,8 @@ public class VentaViewController {
     }
 
     @GetMapping("/anular/{codigo}")
-    public String anularVenta(@PathVariable Integer codigo) {
+    public String anular(@PathVariable Integer codigo) {
         ventaService.anular(codigo);
         return "redirect:/ventas";
-    }
-
-    @GetMapping("/detalle/{codigo}")
-    public String verDetalleVenta(@PathVariable Integer codigo, Model model) {
-        Venta venta = ventaService.buscarPorCodigo(codigo)
-                .orElseThrow(() -> new RuntimeException("Venta no encontrada"));
-        model.addAttribute("venta", venta);
-        return "venta/detalle";
     }
 }

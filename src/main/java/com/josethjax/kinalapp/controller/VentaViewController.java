@@ -3,6 +3,8 @@ package com.josethjax.kinalapp.controller;
 import com.josethjax.kinalapp.Service.IClienteService;
 import com.josethjax.kinalapp.Service.IUsuarioService;
 import com.josethjax.kinalapp.Service.IVentaService;
+import com.josethjax.kinalapp.entity.Cliente;
+import com.josethjax.kinalapp.entity.Usuario;
 import com.josethjax.kinalapp.entity.Venta;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,10 +41,25 @@ public class VentaViewController {
     }
 
     @PostMapping("/guardar")
-    public String guardar(@ModelAttribute Venta venta) {
+    public String guardar(@RequestParam("cliente.dpiCliente") String dpiCliente,
+                          @RequestParam("usuario.codigoUsuario") Integer codigoUsuario) {
+
+        // Buscar el cliente completo
+        Cliente cliente = clienteService.buscarPorDPI(dpiCliente)
+                .orElseThrow(() -> new RuntimeException("Cliente no encontrado: " + dpiCliente));
+
+        // Buscar el usuario completo
+        Usuario usuario = usuarioService.buscarPorCodigo(codigoUsuario)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado: " + codigoUsuario));
+
+        // Crear la venta
+        Venta venta = new Venta();
         venta.setFechaVenta(LocalDate.now());
         venta.setTotal(java.math.BigDecimal.ZERO);
         venta.setEstado(1);
+        venta.setCliente(cliente);
+        venta.setUsuario(usuario);
+
         ventaService.guardar(venta);
         return "redirect:/ventas";
     }

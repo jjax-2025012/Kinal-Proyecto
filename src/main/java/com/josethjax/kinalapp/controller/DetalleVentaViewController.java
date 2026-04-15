@@ -33,12 +33,8 @@ public class DetalleVentaViewController {
         Venta venta = ventaService.buscarPorCodigo(codigoVenta)
                 .orElseThrow(() -> new RuntimeException("Venta no encontrada"));
 
-        DetalleVenta detalle = new DetalleVenta();
-        detalle.setVenta(venta);
-
-        model.addAttribute("detalle", detalle);
-        model.addAttribute("productos", productoService.listarProductos());
         model.addAttribute("codigoVenta", codigoVenta);
+        model.addAttribute("productos", productoService.listarProductos());
         return "detalle-venta/formulario";
     }
 
@@ -48,20 +44,24 @@ public class DetalleVentaViewController {
                           @RequestParam Integer cantidad,
                           @RequestParam BigDecimal precioUnitario) {
 
+        // Buscar la venta
         Venta venta = ventaService.buscarPorCodigo(codigoVenta)
                 .orElseThrow(() -> new RuntimeException("Venta no encontrada"));
 
+        // Buscar el producto
         Producto producto = productoService.buscarPorCodigo(productoId)
                 .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
 
+        // Crear el detalle de venta en el mismo formato que Postman
         DetalleVenta detalle = new DetalleVenta();
-        detalle.setVenta(venta);
-        detalle.setProducto(producto);
         detalle.setCantidad(cantidad);
         detalle.setPrecioUnitario(precioUnitario);
+        detalle.setVenta(venta);
+        detalle.setProducto(producto);
 
-        BigDecimal subtotal = precioUnitario.multiply(BigDecimal.valueOf(cantidad));
-        detalle.setSubtotal(subtotal);
+        // El subtotal se calcula automáticamente en el servicio
+        // El stock se actualiza automáticamente en el servicio
+        // El total de la venta se actualiza automáticamente en el servicio
 
         detalleVentaService.guardar(detalle);
 

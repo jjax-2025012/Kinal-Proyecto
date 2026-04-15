@@ -38,6 +38,23 @@ public class UsuarioViewController {
 
     @PostMapping("/guardar")
     public String guardar(@ModelAttribute Usuario usuario) {
+        // Validaciones básicas
+        if (usuario.getUsername() == null || usuario.getUsername().trim().isEmpty()) {
+            throw new IllegalArgumentException("Username es obligatorio");
+        }
+        if (usuario.getPassword() == null || usuario.getPassword().trim().isEmpty()) {
+            throw new IllegalArgumentException("Password es obligatorio");
+        }
+        if (usuario.getEmail() == null || usuario.getEmail().trim().isEmpty()) {
+            throw new IllegalArgumentException("Email es obligatorio");
+        }
+        if (usuario.getRol() == null || usuario.getRol().trim().isEmpty()) {
+            usuario.setRol("USER");
+        }
+        if (usuario.getEstado() != 1 && usuario.getEstado() != 0) {
+            usuario.setEstado(1);
+        }
+
         usuarioService.guardar(usuario);
         return "redirect:/usuarios";
     }

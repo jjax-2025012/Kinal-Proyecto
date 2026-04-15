@@ -3,6 +3,8 @@ package com.josethjax.kinalapp.entity;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "ventas")
@@ -28,6 +30,9 @@ public class Venta {
     @ManyToOne
     @JoinColumn(name = "Usuarios_codigo_usuario")
     private Usuario usuario;
+
+    @OneToMany(mappedBy = "venta", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<DetalleVenta> detalles = new ArrayList<>();
 
     public Venta() {
     }
@@ -86,5 +91,13 @@ public class Venta {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public List<DetalleVenta> getDetalles() {
+        return detalles;
+    }
+
+    public void setDetalles(List<DetalleVenta> detalles) {
+        this.detalles = detalles;
     }
 }

@@ -2,177 +2,102 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>KinalApp - Gestión de Ventas</title>
+    <title>KinalApp - Sistema de Gestion de Ventas</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
     <style>
-        body {
-            background: linear-gradient(135deg, #004A99 0%, #002d5e 100%);
-            min-height: 100vh;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        .hero-section {
+            background: var(--gradiente-azul);
+            color: white;
+            padding: 60px 0;
+            border-radius: 16px;
+            margin-bottom: 40px;
         }
-        .card {
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            margin-top: 50px;
-            border: none;
+        .feature-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            height: 100%;
         }
-        .card-header {
-            background: linear-gradient(135deg, #004A99 0%, #003d7a 100%);
-            border-radius: 15px 15px 0 0 !important;
-            padding: 20px;
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
         }
-        .logo-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
         }
-        .logo-container img {
-            height: 60px;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+        .feature-card h3 {
+            color: var(--azul-principal);
+            margin-bottom: 15px;
         }
-        .logo-container h1 {
-            margin: 0;
-            font-size: 2rem;
+        .btn-index {
+            background: var(--gradiente-naranja);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 8px;
+            text-decoration: none;
             font-weight: bold;
-            color: white;
-        }
-        .btn-kinal {
-            background-color: #F57F20;
-            border-color: #F57F20;
-            color: white;
-            font-weight: 500;
-            padding: 12px;
+            display: inline-block;
             transition: all 0.3s ease;
         }
-        .btn-kinal:hover {
-            background-color: #e06a10;
-            border-color: #e06a10;
+        .btn-index:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 12px rgba(245, 124, 0, 0.3);
             color: white;
-        }
-        .btn-primary {
-            background-color: #004A99;
-            border-color: #004A99;
-            padding: 12px;
-            transition: all 0.3s ease;
-        }
-        .btn-primary:hover {
-            background-color: #003d7a;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
-        .btn-success {
-            background-color: #28a745;
-            padding: 12px;
-            transition: all 0.3s ease;
-        }
-        .btn-success:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
-        .btn-info {
-            background-color: #17a2b8;
-            padding: 12px;
-            transition: all 0.3s ease;
-            color: white;
-        }
-        .btn-info:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            color: white;
-        }
-        .btn-warning {
-            background-color: #ffc107;
-            padding: 12px;
-            transition: all 0.3s ease;
-            color: #333;
-        }
-        .btn-warning:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
-        .card-footer {
-            background-color: #f8f9fa;
-            border-radius: 0 0 15px 15px !important;
-            color: #555555;
-        }
-        .slogan {
-            color: #F57F20;
-            font-size: 1.1rem;
-            margin-top: 10px;
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="card">
-        <div class="card-header">
-            <div class="logo-container">
-                <!-- Logo de KinalApp - asegúrate que el archivo se llame logo.png -->
-                <img th:src="@{/img/logo.png}" alt="Logo KinalApp">
-                <h1>KinalApp</h1>
-            </div>
-            <div class="text-center mt-2">
-                <span class="slogan">Gestión Eficiente de Ventas</span>
+<div class="container py-4">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="d-flex align-items-center gap-3">
+            <img th:src="@{/img/logo.png}" alt="KinalApp Logo" height="50">
+            <h1 style="color: var(--azul-principal); margin: 0;">KinalApp</h1>
+        </div>
+        <a th:href="@{/login}" class="btn-index">Iniciar Sesion</a>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero-section text-center">
+        <h2 style="font-size: 2.5rem; margin-bottom: 15px;">Gestion Eficiente de Ventas</h2>
+        <p style="font-size: 1.2rem; opacity: 0.95;">Controla clientes, productos y ventas desde un solo lugar</p>
+    </div>
+
+    <!-- Features -->
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="feature-card">
+                <div class="feature-icon">👥</div>
+                <h3>Clientes</h3>
+                <p>Gestion completa de clientes con control de estado activo/inactivo</p>
             </div>
         </div>
-        <div class="card-body">
-            <div class="row mt-3">
-                <div class="col-md-3">
-                    <a th:href="@{/clientes}" class="btn btn-primary w-100">
-                        <strong>👥 Clientes</strong>
-                    </a>
-                </div>
-                <div class="col-md-3">
-                    <a th:href="@{/productos}" class="btn btn-success w-100">
-                        <strong>📦 Productos</strong>
-                    </a>
-                </div>
-                <div class="col-md-3">
-                    <a th:href="@{/ventas}" class="btn btn-info w-100">
-                        <strong>💰 Ventas</strong>
-                    </a>
-                </div>
-                <div class="col-md-3">
-                    <a th:href="@{/usuarios}" class="btn btn-warning w-100">
-                        <strong>👤 Usuarios</strong>
-                    </a>
-                </div>
-            </div>
-
-            <hr class="my-4">
-
-            <div class="row text-center">
-                <div class="col-md-4">
-                    <div class="p-3">
-                        <h3 style="color: #004A99;">📊</h3>
-                        <h5>Control Total</h5>
-                        <small class="text-muted">Gestione clientes, productos y ventas desde un solo lugar</small>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="p-3">
-                        <h3 style="color: #F57F20;">⚡</h3>
-                        <h5>Rápido y Eficiente</h5>
-                        <small class="text-muted">Interfaz optimizada para agilizar tus operaciones</small>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="p-3">
-                        <h3 style="color: #555555;">🔒</h3>
-                        <h5>Seguro y Confiable</h5>
-                        <small class="text-muted">Tus datos protegidos con los más altos estándares</small>
-                    </div>
-                </div>
+        <div class="col-md-4">
+            <div class="feature-card">
+                <div class="feature-icon">📦</div>
+                <h3>Productos</h3>
+                <p>Control de inventario con stock y precios actualizados</p>
             </div>
         </div>
-        <div class="card-footer text-center">
-            <strong>KinalApp</strong> - Sistema de Gestión de Ventas<br>
-            <small>© 2026 - Todos los derechos reservados</small>
+        <div class="col-md-4">
+            <div class="feature-card">
+                <div class="feature-icon">💰</div>
+                <h3>Ventas</h3>
+                <p>Registro de ventas con calculo automatico de totales</p>
+            </div>
         </div>
     </div>
+
+    <!-- Footer -->
+    <footer class="text-center mt-5">
+        <p style="margin: 0;"> 2026 KinalApp - Sistema de Gestion de Ventas</p>
+        <small>Todos los derechos reservados</small>
+    </footer>
 </div>
 </body>
 </html>

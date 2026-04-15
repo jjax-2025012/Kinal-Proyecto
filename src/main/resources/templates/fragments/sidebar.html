@@ -1,10 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="sidebar" class="sidebar">
+    <div class="logo-container">
+        <img th:src="@{/img/logo.png}" alt="KinalApp Logo">
+        <h2>KinalApp</h2>
+        <p>Gestion Eficiente de Ventas</p>
+    </div>
+    <nav class="nav-menu">
+        <a th:href="@{/clientes}" class="nav-item" th:classappend="${#httpServletRequest.requestURI.contains('/clientes')} ? 'active' : ''">
+            <span>👥</span> Clientes
+        </a>
+        <a th:href="@{/productos}" class="nav-item" th:classappend="${#httpServletRequest.requestURI.contains('/productos')} ? 'active' : ''">
+            <span>📦</span> Productos
+        </a>
+        <a th:href="@{/ventas}" class="nav-item" th:classappend="${#httpServletRequest.requestURI.contains('/ventas')} ? 'active' : ''">
+            <span>💰</span> Ventas
+        </a>
+        <a th:href="@{/usuarios}" class="nav-item" th:classappend="${#httpServletRequest.requestURI.contains('/usuarios')} ? 'active' : ''">
+            <span>👤</span> Usuarios
+        </a>
+    </nav>
+    <div class="user-info">
+        <p id="usernameDisplay"></p>
+        <button onclick="logout()" class="btn-logout">Cerrar Sesion</button>
+    </div>
+</div>
+
+<script>
+    function logout() {
+        sessionStorage.removeItem('usuario');
+        document.cookie = 'usuario=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        document.cookie = 'username=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        window.location.href = '/login';
+    }
+
+    // Mostrar username
+    const usuario = JSON.parse(sessionStorage.getItem('usuario'));
+    if (usuario && document.getElementById('usernameDisplay')) {
+        document.getElementById('usernameDisplay').textContent = usuario.username;
+    }
+</script>
 </html>

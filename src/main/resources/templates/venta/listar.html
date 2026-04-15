@@ -33,6 +33,8 @@
                 <span th:if="${venta.estado == 0}" class="badge bg-danger">Anulada</span>
             </td>
             <td>
+                <!-- CORREGIDO: Agregado enlace al detalle -->
+                <a th:href="@{/ventas/detalle/{codigo}(codigo=${venta.codigoVenta})}" class="btn btn-sm btn-info">Ver Detalle</a>
                 <a th:if="${venta.estado == 1}" th:href="@{/ventas/anular/{codigo}(codigo=${venta.codigoVenta})}" class="btn btn-sm btn-warning" onclick="return confirm('¿Anular esta venta?')">Anular</a>
             </td>
         </tr>

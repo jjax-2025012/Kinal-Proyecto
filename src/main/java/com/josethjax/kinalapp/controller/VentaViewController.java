@@ -6,6 +6,8 @@ import com.josethjax.kinalapp.Service.IVentaService;
 import com.josethjax.kinalapp.entity.Cliente;
 import com.josethjax.kinalapp.entity.Usuario;
 import com.josethjax.kinalapp.entity.Venta;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,8 @@ import java.time.LocalDate;
 @Controller
 @RequestMapping("/ventas")
 public class VentaViewController {
+
+    private static final Logger log = LoggerFactory.getLogger(VentaViewController.class);
 
     private final IVentaService ventaService;
     private final IClienteService clienteService;
@@ -28,12 +32,14 @@ public class VentaViewController {
 
     @GetMapping
     public String listar(Model model) {
+        log.info("=== LISTANDO VENTAS ===");
         model.addAttribute("ventas", ventaService.listarVentas());
         return "venta/listar";
     }
 
     @GetMapping("/nuevo")
     public String nuevo(Model model) {
+        log.info("=== MOSTRANDO FORMULARIO NUEVA VENTA ===");
         model.addAttribute("venta", new Venta());
         model.addAttribute("clientes", clienteService.listarClientes());
         model.addAttribute("usuarios", usuarioService.listarUsuarios());
@@ -41,32 +47,52 @@ public class VentaViewController {
     }
 
     @PostMapping("/guardar")
-    public String guardar(@RequestParam("cliente.dpiCliente") String dpiCliente,
-                          @RequestParam("usuario.codigoUsuario") Integer codigoUsuario) {
+    public String guardar(@RequestParam("dpiCliente") String dpiCliente,
+                          @RequestParam("codigoUsuario") Integer codigoUsuario) {
 
-        // Buscar el cliente completo
-        Cliente cliente = clienteService.buscarPorDPI(dpiCliente)
-                .orElseThrow(() -> new RuntimeException("Cliente no encontrado: " + dpiCliente));
+        log.info("=== CREANDO NUEVA VENTA ===");
+        log.info("DPI Cliente: {}", dpiCliente);
+        log.info("Código Usuario: {}", codigoUsuario);
 
-        // Buscar el usuario completo
-        Usuario usuario = usuarioService.buscarPorCodigo(codigoUsuario)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado: " + codigoUsuario));
+        try {
+            Cliente cliente = clienteService.buscarPorDPI(dpiCliente)
+                    .orElseThrow(() -> new RuntimeException("Cliente no encontrado: " + dpiCliente));
 
-        // Crear la venta
-        Venta venta = new Venta();
-        venta.setFechaVenta(LocalDate.now());
-        venta.setTotal(java.math.BigDecimal.ZERO);
-        venta.setEstado(1);
-        venta.setCliente(cliente);
-        venta.setUsuario(usuario);
+            Usuario usuario = usuarioService.buscarPorCodigo(codigoUsuario)
+                    .orElseThrow(() -> new RuntimeException("Usuario no encontrado: " + codigoUsuario));
 
-        ventaService.guardar(venta);
+            Venta venta = new Venta();
+            venta.setFechaVenta(LocalDate.now());
+            venta.setTotal(java.math.BigDecimal.ZERO);
+            venta.setEstado(1);
+            venta.setCliente(cliente);
+            venta.setUsuario(usuario);
+
+            Venta guardada = ventaService.guardar(venta);
+            log.info("Venta creada exitosamente con ID: {}", guardada.getCodigoVenta());
+
+        } catch (Exception e) {
+            log.error("ERROR al crear venta: {}", e.getMessage());
+            e.printStackTrace();
+            throw e;
+        }
+
         return "redirect:/ventas";
     }
 
     @GetMapping("/anular/{codigo}")
     public String anular(@PathVariable Integer codigo) {
+        log.info("=== ANULANDO VENTA ID: {} ===", codigo);
         ventaService.anular(codigo);
         return "redirect:/ventas";
+    }
+
+    @GetMapping("/detalle/{codigo}")
+    public String detalle(@PathVariable Integer codigo, Model model) {
+        log.info("=== MOSTRANDO DETALLE DE VENTA ID: {} ===", codigo);
+        Venta venta = ventaService.buscarPorCodigo(codigo)
+                .orElseThrow(() -> new RuntimeException("Venta no encontrada: " + codigo));
+        model.addAttribute("venta", venta);
+        return "venta/detalle";
     }
 }

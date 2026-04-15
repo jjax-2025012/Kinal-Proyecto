@@ -43,10 +43,11 @@ public class VentaService implements IVentaService {
     public Venta guardar(Venta venta) {
         validarVenta(venta);
 
-        if (venta.getEstado() == null || venta.getEstado() == 0) {
+        if (venta.getEstado() == null) {
             venta.setEstado(1);
         }
 
+        // CORREGIDO: Siempre iniciar total en 0 (se actualizará con los detalles)
         if (venta.getTotal() == null) {
             venta.setTotal(BigDecimal.ZERO);
         }

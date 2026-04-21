@@ -20,4 +20,6 @@ public interface IVentaService {
     void eliminar(Integer codigoVenta);
 
     boolean existePorCodigo(Integer codigoVenta);
+
+    Venta anular(Integer codigoVenta);
 }

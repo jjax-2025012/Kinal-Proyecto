@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="sidebar" class="bg-dark text-white p-3" style="width: 250px; min-height: 100vh;">
+    <h4 class="text-center mb-4">KinalApp</h4>
+    <hr>
+    <nav class="nav flex-column">
+        <a th:href="@{/clientes}" class="nav-link text-white">Clientes</a>
+        <a th:href="@{/productos}" class="nav-link text-white">Productos</a>
+        <a th:href="@{/ventas}" class="nav-link text-white">Ventas</a>
+        <a th:href="@{/usuarios}" class="nav-link text-white">Usuarios</a>
+    </nav>
+    <hr>
+    <div class="mt-auto">
+        <p id="usernameDisplay" class="small text-center"></p>
+        <a href="/login" class="btn btn-danger btn-sm w-100"
+           onclick="sessionStorage.clear(); document.cookie.split(';').forEach(function(c) { document.cookie = c.replace(/^ +/, '').replace(/=.*/, '=;path=/;expires=' + new Date().toUTCString()); });">
+            Cerrar Sesión
+        </a>
+    </div>
+</div>
+
+<script>
+    // Mostrar nombre de usuario
+    var usuarioData = sessionStorage.getItem('usuario');
+    var usernameDisplay = document.getElementById('usernameDisplay');
+    if (usuarioData && usernameDisplay) {
+        try {
+            var usuario = JSON.parse(usuarioData);
+            usernameDisplay.textContent = '👤 ' + usuario.username;
+        } catch(e) {}
+    }
+</script>
+</html>

@@ -44,10 +44,9 @@ public class UsuarioService implements IUsuarioService {
         }
 
         // Validar que no exista otro usuario con el mismo username
-        // Para nuevo usuario (codigoUsuario = 0) o para actualización
         boolean usernameExiste = usuarioRepository.findAll().stream()
                 .anyMatch(u -> u.getUsername().equals(usuario.getUsername())
-                        && u.getCodigoUsuario() != usuario.getCodigoUsuario());
+                        && (u.getCodigoUsuario() != usuario.getCodigoUsuario()));
 
         if (usernameExiste) {
             throw new IllegalArgumentException("El username ya existe");
@@ -56,7 +55,7 @@ public class UsuarioService implements IUsuarioService {
         // Validar que no exista otro usuario con el mismo email
         boolean emailExiste = usuarioRepository.findAll().stream()
                 .anyMatch(u -> u.getEmail().equals(usuario.getEmail())
-                        && u.getCodigoUsuario() != usuario.getCodigoUsuario());
+                        && (u.getCodigoUsuario() != usuario.getCodigoUsuario()));
 
         if (emailExiste) {
             throw new IllegalArgumentException("El email ya existe");
@@ -67,10 +66,7 @@ public class UsuarioService implements IUsuarioService {
             usuario.setRol("USER");
         }
 
-        // Si no especifica estado, asignar 1 por defecto
-        if (usuario.getEstado() == 0) {
-            usuario.setEstado(1);
-        }
+        // CORREGIDO: Ya no fuerza estado=1, respeta el valor enviado
 
         return usuarioRepository.save(usuario);
     }
@@ -87,18 +83,15 @@ public class UsuarioService implements IUsuarioService {
 
     @Override
     public Usuario actualizar(Integer codigo, Usuario usuario) {
-        // Buscar el usuario existente
         Usuario usuarioExistente = usuarioRepository.findById(codigo)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
-        // Actualizar los campos
         usuarioExistente.setUsername(usuario.getUsername());
         usuarioExistente.setPassword(usuario.getPassword());
         usuarioExistente.setEmail(usuario.getEmail());
         usuarioExistente.setRol(usuario.getRol());
         usuarioExistente.setEstado(usuario.getEstado());
 
-        // Guardar con las validaciones
         return guardar(usuarioExistente);
     }
 }

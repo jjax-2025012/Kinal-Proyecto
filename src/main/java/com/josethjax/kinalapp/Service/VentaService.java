@@ -43,8 +43,13 @@ public class VentaService implements IVentaService {
     public Venta guardar(Venta venta) {
         validarVenta(venta);
 
-        if (venta.getEstado() == null || venta.getEstado() == 0) {
+        if (venta.getEstado() == null) {
             venta.setEstado(1);
+        }
+
+        // CORREGIDO: Siempre iniciar total en 0 (se actualizará con los detalles)
+        if (venta.getTotal() == null) {
+            venta.setTotal(BigDecimal.ZERO);
         }
 
         return ventaRepository.save(venta);
@@ -64,16 +69,26 @@ public class VentaService implements IVentaService {
 
     @Override
     public void eliminar(Integer codigoVenta) {
-        if (!ventaRepository.existsById(codigoVenta)) {
-            throw new RuntimeException("La venta no se encontró con el código: " + codigoVenta);
-        }
-        ventaRepository.deleteById(codigoVenta);
+        throw new UnsupportedOperationException("No se pueden eliminar ventas por cumplimiento fiscal. Use anular() en su lugar.");
     }
 
     @Override
     @Transactional(readOnly = true)
     public boolean existePorCodigo(Integer codigoVenta) {
         return ventaRepository.existsById(codigoVenta);
+    }
+
+    @Override
+    public Venta anular(Integer codigoVenta) {
+        Venta venta = ventaRepository.findById(codigoVenta)
+                .orElseThrow(() -> new RuntimeException("Venta no encontrada con código: " + codigoVenta));
+
+        if (venta.getEstado() == 0) {
+            throw new IllegalStateException("La venta ya está anulada");
+        }
+
+        venta.setEstado(0);
+        return ventaRepository.save(venta);
     }
 
     private void validarVenta(Venta venta) {

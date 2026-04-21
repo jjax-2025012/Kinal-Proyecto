@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ventas - KinalApp</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div class="app-container">
+    <div th:replace="fragments/sidebar :: sidebar"></div>
+
+    <main class="main-content">
+        <div class="top-bar">
+            <h1>Gestion de Ventas</h1>
+            <a th:href="@{/ventas/nuevo}" class="btn-primary"> Nueva Venta</a>
+        </div>
+
+        <table class="data-table">
+            <thead>
+            <tr>
+                <th>Codigo</th>
+                <th>Fecha</th>
+                <th>Cliente</th>
+                <th>Usuario</th>
+                <th>Total</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="venta : ${ventas}">
+                <td th:text="${venta.codigoVenta}"></td>
+                <td th:text="${venta.fechaVenta}"></td>
+                <td th:text="${venta.cliente.nombreCliente} + ' ' + ${venta.cliente.apellidoCliente}"></td>
+                <td th:text="${venta.usuario.username}"></td>
+                <td th:text="'Q' + ${venta.total}"></td>
+                <td>
+                    <span th:if="${venta.estado == 1}" class="badge-success">Activa</span>
+                    <span th:if="${venta.estado == 0}" class="badge-danger">Anulada</span>
+                </td>
+                <td>
+                    <a th:href="@{/ventas/detalle/{codigo}(codigo=${venta.codigoVenta})}" class="btn-info">Ver Detalle</a>
+                    <a th:if="${venta.estado == 1}" th:href="@{/ventas/anular/{codigo}(codigo=${venta.codigoVenta})}" class="btn-warning" onclick="return confirm('Anular esta venta?')">Anular</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </main>
+</div>
+</body>
+</html>

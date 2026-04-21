@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/ventas")
+@RequestMapping("/api/ventas")
 public class VentaController {
 
     private final IVentaService ventaService;
@@ -55,6 +55,8 @@ public class VentaController {
             }
             ventaService.eliminar(codigo);
             return ResponseEntity.noContent().build();
+        } catch (UnsupportedOperationException e) {
+            return ResponseEntity.badRequest().build();
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
         }
@@ -69,6 +71,21 @@ public class VentaController {
             Venta ventaActualizada = ventaService.actualizar(codigo, venta);
             return ResponseEntity.ok(ventaActualizada);
         } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PutMapping("/{codigo}/anular")
+    public ResponseEntity<?> anular(@PathVariable Integer codigo) {
+        try {
+            if (!ventaService.existePorCodigo(codigo)) {
+                return ResponseEntity.notFound().build();
+            }
+            Venta ventaAnulada = ventaService.anular(codigo);
+            return ResponseEntity.ok(ventaAnulada);
+        } catch (IllegalStateException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();

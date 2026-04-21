@@ -9,7 +9,7 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "codigo_usuario")
-    private long codigoUsuario;
+    private Integer codigoUsuario;  // Cambiado de long a Integer
 
     @Column(name = "username", length = 45)
     private String username;
@@ -26,12 +26,10 @@ public class Usuario {
     @Column(name = "estado")
     private int estado;
 
-    // Constructor vacío
-    public Usuario(){
+    public Usuario() {
     }
 
-    // Constructor con parámetros
-    public Usuario(String username, String password, String email, String rol, int estado){
+    public Usuario(String username, String password, String email, String rol, int estado) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -39,7 +37,7 @@ public class Usuario {
         this.estado = estado;
     }
 
-    public long getCodigoUsuario() {
+    public Integer getCodigoUsuario() {
         return codigoUsuario;
     }
 
@@ -87,4 +85,3 @@ public class Usuario {
         this.estado = estado;
     }
 }
-

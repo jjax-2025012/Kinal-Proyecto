@@ -58,11 +58,7 @@ public class ProductoService implements IProductoService {
     @Override
     public Producto guardar(Producto producto) {
         validarProducto(producto);
-
-        if (producto.getEstado() == null || producto.getEstado() == 0) {
-            producto.setEstado(1);
-        }
-
+        // CORREGIDO: Ya no fuerza estado=1, respeta el valor enviado
         return productoRepository.save(producto);
     }
 
@@ -71,10 +67,8 @@ public class ProductoService implements IProductoService {
         if (!productoRepository.existsById(codigoProducto)) {
             throw new RuntimeException("El producto no se encontró con el código: " + codigoProducto);
         }
-
         producto.setCodigoProducto(codigoProducto);
         validarProducto(producto);
-
         return productoRepository.save(producto);
     }
 
@@ -92,15 +86,28 @@ public class ProductoService implements IProductoService {
         return productoRepository.existsById(codigoProducto);
     }
 
+    @Override
+    public void actualizarStock(Integer codigo, int cantidad) {
+        Producto producto = productoRepository.findById(codigo)
+                .orElseThrow(() -> new RuntimeException("Producto no encontrado con código: " + codigo));
+
+        int nuevoStock = producto.getStock() - cantidad;
+
+        if (nuevoStock < 0) {
+            throw new IllegalArgumentException("Stock insuficiente. Stock actual: " + producto.getStock() + ", Cantidad solicitada: " + cantidad);
+        }
+
+        producto.setStock(nuevoStock);
+        productoRepository.save(producto);
+    }
+
     private void validarProducto(Producto producto) {
         if (producto.getNombreProducto() == null || producto.getNombreProducto().trim().isEmpty()) {
             throw new IllegalArgumentException("El nombre del producto es obligatorio");
         }
-
         if (producto.getPrecio() == null || producto.getPrecio().compareTo(BigDecimal.ZERO) <= 0) {
             throw new IllegalArgumentException("El precio debe ser mayor a 0");
         }
-
         if (producto.getStock() == null || producto.getStock() < 0) {
             throw new IllegalArgumentException("El stock no puede ser negativo");
         }

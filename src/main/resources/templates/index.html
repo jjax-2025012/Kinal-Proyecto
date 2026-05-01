@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>KinalApp - Sistema de Gestion de Ventas</title>
@@ -43,6 +44,8 @@
             font-weight: bold;
             display: inline-block;
             transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
         }
         .btn-index:hover {
             transform: translateY(-2px);
@@ -53,22 +56,34 @@
 </head>
 <body>
 <div class="container py-4">
-    <!-- Header -->
+
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div class="d-flex align-items-center gap-3">
             <img th:src="@{/img/logo.png}" alt="KinalApp Logo" height="50">
             <h1 style="color: var(--azul-principal); margin: 0;">KinalApp</h1>
         </div>
-        <a th:href="@{/login}" class="btn-index">Iniciar Sesion</a>
+
+
+        <div sec:authorize="isAuthenticated()" class="d-flex align-items-center gap-3">
+            <span style="color: var(--azul-principal); font-weight: bold;">
+                👤 <span sec:authentication="name"></span>
+            </span>
+            <form th:action="@{/logout}" method="post" style="margin: 0;">
+                <button type="submit" class="btn-index">Cerrar Sesión</button>
+            </form>
+        </div>
+        <div sec:authorize="!isAuthenticated()">
+            <a th:href="@{/login}" class="btn-index">Iniciar Sesión</a>
+        </div>
     </div>
 
-    <!-- Hero Section -->
+
     <div class="hero-section text-center">
         <h2 style="font-size: 2.5rem; margin-bottom: 15px;">Gestion Eficiente de Ventas</h2>
         <p style="font-size: 1.2rem; opacity: 0.95;">Controla clientes, productos y ventas desde un solo lugar</p>
     </div>
 
-    <!-- Features -->
+
     <div class="row g-4">
         <div class="col-md-4">
             <div class="feature-card">
@@ -93,9 +108,9 @@
         </div>
     </div>
 
-    <!-- Footer -->
+
     <footer class="text-center mt-5">
-        <p style="margin: 0;"> 2026 KinalApp - Sistema de Gestion de Ventas</p>
+        <p style="margin: 0;">2026 KinalApp - Sistema de Gestion de Ventas</p>
         <small>Todos los derechos reservados</small>
     </footer>
 </div>

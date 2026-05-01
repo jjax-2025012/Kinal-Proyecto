@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <div th:fragment="sidebar" class="bg-dark text-white p-3" style="width: 250px; min-height: 100vh;">
     <h4 class="text-center mb-4">KinalApp</h4>
     <hr>
@@ -11,23 +12,14 @@
     </nav>
     <hr>
     <div class="mt-auto">
-        <p id="usernameDisplay" class="small text-center"></p>
-        <a href="/login" class="btn btn-danger btn-sm w-100"
-           onclick="sessionStorage.clear(); document.cookie.split(';').forEach(function(c) { document.cookie = c.replace(/^ +/, '').replace(/=.*/, '=;path=/;expires=' + new Date().toUTCString()); });">
-            Cerrar Sesión
-        </a>
+        <p class="small text-center">
+            👤 <span sec:authentication="name"></span>
+        </p>
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="btn btn-danger btn-sm w-100">
+                Cerrar Sesión
+            </button>
+        </form>
     </div>
 </div>
-
-<script>
-    // Mostrar nombre de usuario
-    var usuarioData = sessionStorage.getItem('usuario');
-    var usernameDisplay = document.getElementById('usernameDisplay');
-    if (usuarioData && usernameDisplay) {
-        try {
-            var usuario = JSON.parse(usuarioData);
-            usernameDisplay.textContent = '👤 ' + usuario.username;
-        } catch(e) {}
-    }
-</script>
 </html>

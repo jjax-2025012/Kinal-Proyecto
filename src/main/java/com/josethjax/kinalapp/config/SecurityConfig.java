@@ -23,8 +23,47 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
+
                         // Recursos públicos
-                        .requestMatchers("/login", "/css/**", "/js/**", "/img/**", "/api/auth/**").permitAll()
+                        .requestMatchers(
+                                "/login",
+                                "/css/**",
+                                "/js/**",
+                                "/img/**",
+                                "/api/auth/**",
+                                "/api/usuarios"         // registro desde login
+                        ).permitAll()
+
+                        // Solo ADMIN: crear, editar, eliminar, gestión usuarios
+                        .requestMatchers(
+                                "/clientes/nuevo",
+                                "/clientes/guardar",
+                                "/clientes/editar/**",
+                                "/clientes/eliminar/**",
+                                "/productos/nuevo",
+                                "/productos/guardar",
+                                "/productos/editar/**",
+                                "/productos/eliminar/**",
+                                "/ventas/nuevo",
+                                "/ventas/guardar",
+                                "/ventas/anular/**",
+                                "/detalles-venta/**",
+                                "/usuarios/**",
+                                "/api/clientes/**",
+                                "/api/productos/**",
+                                "/api/ventas/**",
+                                "/api/usuarios/**"
+                        ).hasRole("ADMIN")
+
+                        // USER y ADMIN: solo ver listados y detalles
+                        .requestMatchers(
+                                "/index",
+                                "/clientes",
+                                "/productos",
+                                "/ventas",
+                                "/ventas/detalle/**"
+                        ).hasAnyRole("USER", "ADMIN")
+
                         // Todo lo demás requiere autenticación
                         .anyRequest().authenticated()
                 )
@@ -39,8 +78,17 @@ public class SecurityConfig {
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/login?logout=true")
                         .invalidateHttpSession(true)
-                        .deleteCookies("JSESSIONID", "usuario")
+                        .clearAuthentication(true)
+                        .deleteCookies("JSESSIONID")
                         .permitAll()
+                )
+                .sessionManagement(session -> session
+                        .maximumSessions(1)
+                        .expiredUrl("/login?expired=true")
+                )
+                // Manejo de acceso denegado → página de error 403
+                .exceptionHandling(ex -> ex
+                        .accessDeniedPage("/login?denied=true")
                 )
                 .csrf(csrf -> csrf.disable());
 
@@ -49,7 +97,6 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        // Las contraseñas están en texto plano en la BD
         return NoOpPasswordEncoder.getInstance();
     }
 

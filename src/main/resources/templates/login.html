@@ -22,12 +22,22 @@
                         Usuario o contraseña incorrectos.
                     </div>
 
+                    <!-- Mensaje de acceso denegado -->
+                    <div th:if="${param.denied}" class="alert alert-warning">
+                        No tienes permisos para acceder a esa sección.
+                    </div>
+
                     <!-- Mensaje de logout -->
                     <div th:if="${param.logout}" class="alert alert-success">
                         Sesión cerrada correctamente.
                     </div>
 
-                    <!-- FORM nativo para Spring Security (sin CSRF porque está deshabilitado) -->
+                    <!-- Mensaje de sesión expirada -->
+                    <div th:if="${param.expired}" class="alert alert-warning">
+                        Tu sesión ha expirado. Por favor inicia sesión nuevamente.
+                    </div>
+
+                    <!-- FORM nativo para Spring Security -->
                     <form th:action="@{/login}" method="post">
                         <div class="mb-3">
                             <label>Usuario</label>
@@ -121,6 +131,12 @@
             return;
         }
 
+        if (password.length < 4) {
+            errorDiv.textContent = 'La contraseña debe tener al menos 4 caracteres';
+            errorDiv.style.display = 'block';
+            return;
+        }
+
         if (password !== confirmPassword) {
             errorDiv.textContent = 'Las contraseñas no coinciden';
             errorDiv.style.display = 'block';
@@ -135,19 +151,22 @@
             });
 
             if (response.ok) {
-                successDiv.textContent = 'Usuario registrado exitosamente';
+                successDiv.textContent = '¡Usuario registrado exitosamente! Ya puedes iniciar sesión.';
                 successDiv.style.display = 'block';
                 setTimeout(() => {
                     registerModal.hide();
                     document.getElementById('regUsername').value = '';
+                    document.getElementById('regEmail').value = '';
+                    document.getElementById('regPassword').value = '';
+                    document.getElementById('regConfirmPassword').value = '';
                 }, 2000);
             } else {
                 const data = await response.json();
-                errorDiv.textContent = data.error || 'Error al registrar';
+                errorDiv.textContent = data.error || 'Error al registrar usuario';
                 errorDiv.style.display = 'block';
             }
         } catch (error) {
-            errorDiv.textContent = 'Error de conexión';
+            errorDiv.textContent = 'Error de conexión con el servidor';
             errorDiv.style.display = 'block';
         }
     }

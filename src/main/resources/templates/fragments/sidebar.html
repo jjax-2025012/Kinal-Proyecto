@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<div th:fragment="sidebar" class="bg-dark text-white p-3" style="width: 250px; min-height: 100vh;">
+    <h4 class="text-center mb-4">KinalApp</h4>
+    <hr>
+    <nav class="nav flex-column">
+        <a th:href="@{/clientes}" class="nav-link text-white">Clientes</a>
+        <a th:href="@{/productos}" class="nav-link text-white">Productos</a>
+        <a th:href="@{/ventas}" class="nav-link text-white">Ventas</a>
+        <a th:href="@{/usuarios}" class="nav-link text-white">Usuarios</a>
+    </nav>
+    <hr>
+    <div class="mt-auto">
+        <p class="small text-center">
+            👤 <span sec:authentication="name"></span>
+        </p>
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="btn btn-danger btn-sm w-100">
+                Cerrar Sesión
+            </button>
+        </form>
+    </div>
+</div>
+</html>

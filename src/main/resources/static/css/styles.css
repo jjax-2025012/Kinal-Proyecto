@@ -1,0 +1,299 @@
+/* KinalApp - Estilos base funcionales */
+:root {
+    --azul-principal: #004A99;
+    --azul-oscuro: #003d7a;
+    --naranja-principal: #F57F20;
+    --naranja-claro: #FFA726;
+    --gris-oscuro: #555555;
+    --fondo-claro: #f8f9fa;
+    --blanco: #ffffff;
+    --gradiente-azul: linear-gradient(135deg, #004A99 0%, #003d7a 100%);
+    --gradiente-naranja: linear-gradient(135deg, #F57F20 0%, #FFA726 100%);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--fondo-claro);
+    color: var(--gris-oscuro);
+}
+
+/* Layout */
+.app-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.main-content {
+    flex: 1;
+    margin-left: 260px;
+    padding: 20px;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--azul-principal);
+}
+
+.top-bar h1 {
+    color: var(--azul-principal);
+    font-size: 1.8rem;
+    margin: 0;
+}
+
+/* Botones */
+.btn-primary, button.btn-primary, a.btn-primary {
+    background-color: var(--azul-principal);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover, button.btn-primary:hover, a.btn-primary:hover {
+    background-color: var(--azul-oscuro);
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0, 74, 153, 0.3);
+}
+
+.btn-warning, a.btn-warning {
+    background-color: var(--naranja-principal);
+    border: none;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-warning:hover, a.btn-warning:hover {
+    background-color: #e06a10;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(245, 124, 0, 0.3);
+}
+
+.btn-danger, a.btn-danger {
+    background-color: #dc3545;
+    border: none;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+}
+
+.btn-danger:hover, a.btn-danger:hover {
+    background-color: #c82333;
+    transform: translateY(-1px);
+}
+
+.btn-secondary, a.btn-secondary {
+    background-color: var(--gris-oscuro);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover, a.btn-secondary:hover {
+    background-color: #666666;
+    transform: translateY(-2px);
+}
+
+.btn-info, a.btn-info {
+    background-color: var(--azul-principal);
+    border: none;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+}
+
+.btn-info:hover, a.btn-info:hover {
+    background-color: var(--azul-oscuro);
+    transform: translateY(-1px);
+}
+
+/* Badges */
+.badge-success, .badge.bg-success {
+    background-color: var(--azul-principal);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    display: inline-block;
+}
+
+.badge-danger, .badge.bg-danger {
+    background-color: #dc3545;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    display: inline-block;
+}
+
+/* Tablas */
+.data-table, .table {
+    width: 100%;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    border-collapse: collapse;
+}
+
+.data-table thead, .table thead.table-dark {
+    background: var(--gradiente-azul);
+    color: white;
+}
+
+.data-table th, .data-table td, .table th, .table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.data-table tbody tr:hover, .table tbody tr:hover {
+    background: #f5f5f5;
+}
+
+/* Formularios */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--gris-oscuro);
+    font-weight: 500;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--azul-principal);
+    box-shadow: 0 0 0 2px rgba(0, 74, 153, 0.2);
+}
+
+/* Cards */
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    border: none;
+}
+
+/* Footer */
+footer {
+    background-color: var(--gris-oscuro);
+    color: white;
+    text-align: center;
+    padding: 15px;
+    margin-top: 30px;
+    border-radius: 8px;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 260px;
+    background: var(--gradiente-azul);
+    color: white;
+    padding: 20px;
+    position: fixed;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.sidebar h4 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.sidebar .nav-link {
+    color: white !important;
+    padding: 10px 15px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.sidebar .nav-link:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+/* Login */
+.bg-light {
+    background: var(--gradiente-azul) !important;
+    min-height: 100vh;
+}
+
+/* Alertas */
+.alert-info {
+    background-color: #e3f2fd;
+    border-color: #bbdef5;
+    color: var(--azul-principal);
+}
+
+/* Gap utility */
+.d-flex {
+    display: flex;
+}
+
+.gap-2 {
+    gap: 10px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 200px;
+    }
+
+    .main-content {
+        margin-left: 200px;
+    }
+
+    .data-table th, .data-table td {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+}

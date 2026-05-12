@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Clientes - KinalApp</title>
@@ -13,7 +14,7 @@
     <div class="container-fluid p-4">
         <div class="d-flex justify-content-between mb-3">
             <h1>Clientes</h1>
-            <a th:href="@{/clientes/nuevo}" class="btn btn-primary">Nuevo Cliente</a>
+            <a sec:authorize="hasRole('ADMIN')" th:href="@{/clientes/nuevo}" class="btn btn-primary">Nuevo Cliente</a>
         </div>
 
         <table class="table table-bordered table-striped">
@@ -38,8 +39,12 @@
                     <span th:if="${cliente.estado == 0}" class="badge bg-danger">Inactivo</span>
                 </td>
                 <td>
-                    <a th:href="@{/clientes/editar/{dpi}(dpi=${cliente.dpiCliente})}" class="btn btn-sm btn-warning">Editar</a>
-                    <a th:href="@{/clientes/eliminar/{dpi}(dpi=${cliente.dpiCliente})}" class="btn btn-sm btn-danger" onclick="return confirm('¿Eliminar?')">Eliminar</a>
+                    <a sec:authorize="hasRole('ADMIN')"
+                       th:href="@{/clientes/editar/{dpi}(dpi=${cliente.dpiCliente})}"
+                       class="btn btn-sm btn-warning">Editar</a>
+                    <a sec:authorize="hasRole('ADMIN')"
+                       th:href="@{/clientes/eliminar/{dpi}(dpi=${cliente.dpiCliente})}"
+                       class="btn btn-sm btn-danger" onclick="return confirm('¿Eliminar?')">Eliminar</a>
                 </td>
             </tr>
             </tbody>

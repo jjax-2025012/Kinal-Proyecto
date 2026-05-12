@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Detalle de Venta - KinalApp</title>
@@ -15,7 +16,6 @@
             <h1>Detalle de Venta #<span th:text="${venta.codigoVenta}"></span></h1>
         </div>
 
-        <!-- Informacion de la venta -->
         <div class="card" style="background: white; padding: 25px; border-radius: 12px; margin-bottom: 25px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
             <div class="row">
                 <div class="col-md-6">
@@ -33,11 +33,11 @@
             </div>
         </div>
 
-        <!-- Productos vendidos -->
         <div class="card" style="background: white; padding: 25px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h3 style="color: var(--azul-principal);">Productos Vendidos</h3>
-                <a th:if="${venta.estado == 1}"
+                <a sec:authorize="hasRole('ADMIN')"
+                   th:if="${venta.estado == 1}"
                    th:href="@{/detalles-venta/nuevo/{codigo}(codigo=${venta.codigoVenta})}"
                    class="btn-primary"> Agregar Producto</a>
             </div>
@@ -71,7 +71,8 @@
             </table>
 
             <div class="mt-3">
-                <a th:if="${venta.estado == 1}"
+                <a sec:authorize="hasRole('ADMIN')"
+                   th:if="${venta.estado == 1}"
                    th:href="@{/ventas/anular/{codigo}(codigo=${venta.codigoVenta})}"
                    class="btn-warning"
                    onclick="return confirm('Anular esta venta?')">

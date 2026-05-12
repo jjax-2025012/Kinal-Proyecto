@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Ventas - KinalApp</title>
@@ -12,14 +13,14 @@
 
     <main class="main-content">
         <div class="top-bar">
-            <h1>Gestion de Ventas</h1>
-            <a th:href="@{/ventas/nuevo}" class="btn-primary"> Nueva Venta</a>
+            <h1>Gestión de Ventas</h1>
+            <a sec:authorize="hasRole('ADMIN')" th:href="@{/ventas/nuevo}" class="btn-primary"> Nueva Venta</a>
         </div>
 
         <table class="data-table">
             <thead>
             <tr>
-                <th>Codigo</th>
+                <th>Código</th>
                 <th>Fecha</th>
                 <th>Cliente</th>
                 <th>Usuario</th>
@@ -41,7 +42,10 @@
                 </td>
                 <td>
                     <a th:href="@{/ventas/detalle/{codigo}(codigo=${venta.codigoVenta})}" class="btn-info">Ver Detalle</a>
-                    <a th:if="${venta.estado == 1}" th:href="@{/ventas/anular/{codigo}(codigo=${venta.codigoVenta})}" class="btn-warning" onclick="return confirm('Anular esta venta?')">Anular</a>
+                    <a sec:authorize="hasRole('ADMIN')"
+                       th:if="${venta.estado == 1}"
+                       th:href="@{/ventas/anular/{codigo}(codigo=${venta.codigoVenta})}"
+                       class="btn-warning" onclick="return confirm('Anular esta venta?')">Anular</a>
                 </td>
             </tr>
             </tbody>

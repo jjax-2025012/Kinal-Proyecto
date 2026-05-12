@@ -1,6 +1,7 @@
 package com.josethjax.kinalapp.config;
 
 import com.josethjax.kinalapp.Service.UserDetailsServiceImpl;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -86,9 +87,17 @@ public class SecurityConfig {
                         .maximumSessions(1)
                         .expiredUrl("/login?expired=true")
                 )
-                // Manejo de acceso denegado → página de error 403
+                // Manejo de acceso denegado → página de error 403 o JSON
                 .exceptionHandling(ex -> ex
-                        .accessDeniedPage("/login?denied=true")
+                        .accessDeniedHandler((request, response, accessDeniedException) -> {
+                            if (request.getRequestURI().startsWith("/api/")) {
+                                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                                response.setContentType("application/json;charset=UTF-8");
+                                response.getWriter().write("{\"error\":\"Solo los administradores pueden realizar esta acción\"}");
+                            } else {
+                                response.sendRedirect("/403");
+                            }
+                        })
                 )
                 .csrf(csrf -> csrf.disable());
 

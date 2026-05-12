@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Productos - KinalApp</title>
@@ -12,14 +13,14 @@
 
     <main class="main-content">
         <div class="top-bar">
-            <h1>Gestion de Productos</h1>
-            <a th:href="@{/productos/nuevo}" class="btn-primary"> Nuevo Producto</a>
+            <h1>Gestión de Productos</h1>
+            <a sec:authorize="hasRole('ADMIN')" th:href="@{/productos/nuevo}" class="btn-primary"> Nuevo Producto</a>
         </div>
 
         <table class="data-table">
             <thead>
             <tr>
-                <th>Codigo</th>
+                <th>Código</th>
                 <th>Nombre</th>
                 <th>Precio</th>
                 <th>Stock</th>
@@ -38,8 +39,12 @@
                     <span th:if="${producto.estado == 0}" class="badge-danger">Inactivo</span>
                 </td>
                 <td>
-                    <a th:href="@{/productos/editar/{codigo}(codigo=${producto.codigoProducto})}" class="btn-warning">Editar</a>
-                    <a th:href="@{/productos/eliminar/{codigo}(codigo=${producto.codigoProducto})}" class="btn-danger" onclick="return confirm('Eliminar este producto?')">Eliminar</a>
+                    <a sec:authorize="hasRole('ADMIN')"
+                       th:href="@{/productos/editar/{codigo}(codigo=${producto.codigoProducto})}"
+                       class="btn-warning">Editar</a>
+                    <a sec:authorize="hasRole('ADMIN')"
+                       th:href="@{/productos/eliminar/{codigo}(codigo=${producto.codigoProducto})}"
+                       class="btn-danger" onclick="return confirm('Eliminar este producto?')">Eliminar</a>
                 </td>
             </tr>
             </tbody>
